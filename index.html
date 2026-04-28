@@ -3,1168 +3,881 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital STARs - Curriculum Architecture</title>
+  <title>Digital STARs — Curriculum Architecture Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:          #FAF9F6;
-      --bg-warm:     #F3EFE8;
-      --surface:     #FFFFFF;
-      --surface-mid: #F7F6F2;
-      --border:      rgba(28,24,18,0.08);
-      --border-mid:  rgba(28,24,18,0.14);
-      --accent:      #D97757;
-      --accent-soft: rgba(217,119,87,0.10);
-      --accent-mid:  rgba(217,119,87,0.20);
-      --c0: #C4773A;  --c0s: rgba(196,119,58,0.12);
-      --c1: #3D8F6E;  --c1s: rgba(61,143,110,0.12);
-      --c2: #A07C2A;  --c2s: rgba(160,124,42,0.12);
-      --c3: #C04F3F;  --c3s: rgba(192,79,63,0.12);
-      --c4: #3A6EA8;  --c4s: rgba(58,110,168,0.12);
-      --c5: #7551A8;  --c5s: rgba(117,81,168,0.12);
-      --private:      #3D8F6E; --private-s: rgba(61,143,110,0.12);
-      --professional: #A07C2A; --professional-s: rgba(160,124,42,0.12);
-      --citizen:      #7551A8; --citizen-s: rgba(117,81,168,0.12);
-      --text-primary:   #1C1812;
-      --text-secondary: #6B6258;
-      --text-dim:       #A09890;
-      --shadow-xs: 0 1px 3px rgba(28,24,18,0.07);
-      --shadow-sm: 0 2px 6px rgba(28,24,18,0.07), 0 1px 2px rgba(28,24,18,0.05);
-      --shadow-md: 0 4px 16px rgba(28,24,18,0.08), 0 1px 4px rgba(28,24,18,0.06);
-      --shadow-lg: 0 8px 32px rgba(28,24,18,0.10), 0 2px 8px rgba(28,24,18,0.07);
-      --r-sm: 6px; --r: 10px; --r-lg: 14px; --r-xl: 20px;
-      --max: 1200px;
+      --accent:        #2563EB;
+      --accent-light:  rgba(37,99,235,0.06);
+      --accent-border: rgba(37,99,235,0.20);
+      --accent-deep:   #1D4ED8;
+
+      --bg:     #FFFFFF;
+      --bg-2:   #F7F8FA;
+      --bg-3:   #F0F1F5;
+      --bg-dk:  #0E0F11;
+
+      --ink:    #0E0F11;
+      --ink-2:  #4B5563;
+      --ink-3:  #9CA3AF;
+      --rule:   rgba(14,15,17,0.08);
+      --rule-2: rgba(14,15,17,0.12);
+
+      --c0: #D97706; --c0b: rgba(217,119,6,0.14);
+      --c1: #059669; --c1b: rgba(5,150,105,0.14);
+      --c2: #7C3AED; --c2b: rgba(124,58,237,0.14);
+      --c3: #DC2626; --c3b: rgba(220,38,38,0.14);
+      --c4: #2563EB; --c4b: rgba(37,99,235,0.14);
+      --c5: #0891B2; --c5b: rgba(8,145,178,0.14);
+
+      --r:    10px;
+      --r-lg: 14px;
+      --r-xl: 18px;
+      --r-pill: 100px;
+      --max:  1100px;
+
+      --sh: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06);
+      --sh-2: 0 2px 8px rgba(0,0,0,0.05), 0 8px 32px rgba(0,0,0,0.08);
     }
 
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--bg);
-      color: var(--text-primary);
+      color: var(--ink);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--bg-warm); }
-    ::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 3px; }
+    /* ============================================================
+       LAYOUT UTILITIES
+    ============================================================ */
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 48px; }
+    @media (max-width: 640px) { .wrap { padding: 0 20px; } }
 
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 40px; }
+    section { padding: 88px 0; }
+    section.alt { background: var(--bg-2); }
+    section.dark { background: var(--bg-dk); }
 
-    /* ---- HEADER ---- */
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 12px; display: block;
+    }
+    section.dark .section-label { color: rgba(37,99,235,0.85); }
+
+    .section-title {
+      font-size: clamp(26px, 3.5vw, 40px); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1.15;
+      color: var(--ink); margin-bottom: 14px;
+    }
+    section.dark .section-title { color: #fff; }
+
+    .section-sub {
+      font-size: 15px; color: var(--ink-2); line-height: 1.75;
+      max-width: 540px;
+    }
+    section.dark .section-sub { color: rgba(255,255,255,0.55); }
+
+    .section-head { margin-bottom: 48px; }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
     header {
-      position: sticky; top: 0; z-index: 200;
-      height: 56px;
-      background: rgba(250,249,246,0.94);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      height: 58px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--rule);
+      transition: box-shadow 0.25s ease;
     }
-    .header-inner {
-      max-width: var(--max); margin: 0 auto; padding: 0 40px;
-      height: 100%;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .header-left { display: flex; align-items: center; gap: 12px; }
-    .logo-mark {
-      width: 28px; height: 28px;
-      background: var(--accent);
-      border-radius: 7px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Lora', serif;
-      font-weight: 700; font-size: 12px;
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(217,119,87,0.35);
-      flex-shrink: 0;
-    }
-    .header-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
-    .header-name span { color: var(--text-secondary); font-weight: 400; }
-    nav { display: flex; gap: 2px; }
-    nav a {
-      font-size: 12px; font-weight: 400;
-      color: var(--text-secondary); text-decoration: none;
-      padding: 5px 12px; border-radius: var(--r-sm);
-      transition: all 0.15s;
-    }
-    nav a:hover { color: var(--text-primary); background: var(--bg-warm); }
-    .header-pill {
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      color: var(--accent); background: var(--accent-soft);
-      border: 1px solid var(--accent-mid);
-      padding: 3px 10px; border-radius: 100px;
-    }
+    header.raised { box-shadow: 0 1px 0 var(--rule), 0 4px 24px rgba(0,0,0,0.05); }
 
-    /* ---- HERO ---- */
-    .hero {
-      background: linear-gradient(150deg, #FAF9F6 0%, #EDE8DF 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 72px 0 64px;
-      position: relative; overflow: hidden;
+    .nav-inner {
+      max-width: var(--max); margin: 0 auto; padding: 0 48px;
+      height: 100%; display: flex; align-items: center;
+      gap: 32px;
     }
-    .hero::after {
-      content: '';
-      position: absolute; right: -60px; top: -60px;
-      width: 560px; height: 560px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(217,119,87,0.09) 0%, transparent 65%);
-      pointer-events: none;
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .logo-sq {
+      width: 30px; height: 30px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; color: #fff;
+      letter-spacing: -0.5px;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.35);
+    }
+    .logo-text { font-size: 14px; font-weight: 700; color: var(--ink); }
+    .logo-text span { font-weight: 400; color: var(--ink-2); }
+
+    nav { display: flex; gap: 2px; margin-left: auto; }
+    nav a {
+      font-size: 13px; font-weight: 500; color: var(--ink-2);
+      text-decoration: none; padding: 6px 12px; border-radius: 7px;
+      transition: color 0.15s, background 0.15s;
+    }
+    nav a:hover { color: var(--accent); background: var(--accent-light); }
+
+    .nav-pill {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.03em;
+      color: var(--accent); background: var(--accent-light);
+      border: 1px solid var(--accent-border);
+      padding: 4px 12px; border-radius: var(--r-pill);
+      white-space: nowrap;
+    }
+    @media (max-width: 768px) { nav, .nav-pill { display: none; } }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      padding: 96px 0 80px;
+      border-bottom: 1px solid var(--rule);
     }
     .hero-inner {
-      max-width: var(--max); margin: 0 auto; padding: 0 40px;
-      display: grid; grid-template-columns: 1fr 400px;
-      gap: 64px; align-items: center;
+      max-width: var(--max); margin: 0 auto; padding: 0 48px;
     }
-    .hero-kicker {
+
+    .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 11px; font-family: 'JetBrains Mono', monospace;
-      color: var(--accent); letter-spacing: 0.06em;
-      background: var(--accent-soft); border: 1px solid var(--accent-mid);
-      padding: 4px 12px; border-radius: 100px;
-      margin-bottom: 24px;
-      opacity: 0; animation: riseIn 0.5s 0.1s forwards;
+      background: var(--accent-light); border: 1px solid var(--accent-border);
+      color: var(--accent); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: var(--r-pill);
+      margin-bottom: 28px;
+      opacity: 0; animation: rise 0.55s 0.05s ease forwards;
     }
-    .hero-kicker::before {
-      content: ''; width: 5px; height: 5px; border-radius: 50%;
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 2px;
       background: var(--accent); flex-shrink: 0;
     }
-    .hero-title {
-      font-family: 'Lora', serif;
-      font-size: clamp(40px, 5.5vw, 68px);
-      font-weight: 700; line-height: 1.06;
-      letter-spacing: -0.025em;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-      opacity: 0; animation: riseIn 0.5s 0.2s forwards;
+
+    .hero-h1 {
+      font-size: clamp(46px, 7vw, 88px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      color: var(--ink);
+      max-width: 820px;
+      margin-bottom: 24px;
+      opacity: 0; animation: rise 0.55s 0.15s ease forwards;
     }
-    .hero-title em { font-style: italic; color: var(--accent); }
-    .hero-subtitle {
-      font-family: 'Lora', serif;
-      font-size: clamp(16px, 1.8vw, 22px);
-      font-weight: 500; font-style: italic;
-      color: var(--text-secondary); margin-bottom: 24px;
-      opacity: 0; animation: riseIn 0.5s 0.25s forwards;
-    }
-    .hero-desc {
-      font-size: 14px; color: var(--text-secondary); line-height: 1.85;
-      max-width: 520px;
-      opacity: 0; animation: riseIn 0.5s 0.35s forwards;
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--accent);
     }
 
-    /* Hero stats panel */
-    .hero-panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-xl);
-      box-shadow: var(--shadow-lg);
-      padding: 28px;
-      position: relative; z-index: 1;
-      opacity: 0; animation: riseIn 0.6s 0.45s forwards;
+    .hero-sub {
+      font-size: 17px; color: var(--ink-2); line-height: 1.75;
+      max-width: 560px; margin-bottom: 36px;
+      opacity: 0; animation: rise 0.55s 0.25s ease forwards;
     }
-    .panel-title {
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--text-dim); margin-bottom: 20px;
+
+    .hero-actions {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      opacity: 0; animation: rise 0.55s 0.33s ease forwards;
     }
-    .stats-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: var(--border);
-      border-radius: var(--r); overflow: hidden;
-      margin-bottom: 20px;
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #fff;
+      font-size: 14px; font-weight: 600;
+      padding: 13px 26px; border-radius: var(--r);
+      text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.30);
+      transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
     }
-    .stat {
-      background: var(--surface);
-      padding: 16px 18px;
+    .btn-primary:hover { background: var(--accent-deep); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.38); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--ink);
+      font-size: 14px; font-weight: 600;
+      padding: 13px 26px; border-radius: var(--r);
+      border: 1.5px solid var(--rule-2); cursor: pointer;
+      text-decoration: none; transition: border-color 0.15s, color 0.15s, background 0.15s;
     }
-    .stat-num {
-      font-family: 'Lora', serif;
-      font-size: 26px; font-weight: 700;
-      color: var(--text-primary); line-height: 1;
-      margin-bottom: 3px;
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+    /* ============================================================
+       IMPACT STRIP
+    ============================================================ */
+    .impact-strip {
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--rule);
+      padding: 0;
     }
-    .stat-num.accent { color: var(--accent); }
-    .stat-label {
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      color: var(--text-dim); letter-spacing: 0.05em; text-transform: uppercase;
+    .impact-inner {
+      max-width: var(--max); margin: 0 auto; padding: 0 48px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-left: 1px solid var(--rule);
     }
-    .panel-tracks { display: flex; flex-direction: column; gap: 8px; }
-    .panel-track {
+    .impact-cell {
+      padding: 28px 32px;
+      border-right: 1px solid var(--rule);
+    }
+    .impact-cell:first-child { border-left: none; }
+    .impact-n {
+      font-size: 34px; font-weight: 800; letter-spacing: -0.04em;
+      color: var(--ink); line-height: 1; margin-bottom: 4px;
+    }
+    .impact-n .accent-n { color: var(--accent); }
+    .impact-l { font-size: 13px; font-weight: 600; color: var(--ink-2); margin-bottom: 2px; }
+    .impact-d { font-size: 11px; color: var(--ink-3); }
+
+    @media (max-width: 768px) {
+      .impact-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ============================================================
+       LEARNING PATHWAY
+    ============================================================ */
+    .pathway-wrap {
+      max-width: 740px; margin: 0 auto;
+    }
+    .path-label {
+      text-align: center; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--ink-3); margin-bottom: 10px;
+    }
+    .path-full-node {
+      background: var(--bg); border: 1.5px solid var(--rule-2);
+      border-radius: var(--r-lg); padding: 16px 24px;
+      display: flex; align-items: center; gap: 14px;
+      box-shadow: var(--sh);
+    }
+    .path-icon {
+      width: 36px; height: 36px; border-radius: 9px;
+      background: var(--accent); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .path-node-title { font-size: 14px; font-weight: 700; }
+    .path-node-sub { font-size: 12px; color: var(--ink-2); margin-top: 1px; }
+    .path-connector {
+      display: flex; justify-content: center; padding: 6px 0;
+    }
+    .path-connector-line { width: 1.5px; height: 28px; background: var(--rule-2); }
+    .path-fork-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin: 6px 0;
+    }
+    .path-branch {
+      border: 1.5px solid var(--rule-2); border-radius: var(--r-lg);
+      overflow: hidden; box-shadow: var(--sh);
+    }
+    .path-branch-header {
+      padding: 12px 20px; display: flex; align-items: center; gap: 10px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .pbh-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .pbh-name { font-size: 13px; font-weight: 700; }
+    .pbh-dur { font-size: 11px; font-weight: 600; color: var(--ink-3); margin-left: auto; }
+    .path-branch.private .path-branch-header  { background: rgba(5,150,105,0.04); }
+    .path-branch.professional .path-branch-header { background: rgba(124,58,237,0.04); }
+    .path-lu-row {
+      padding: 11px 20px; border-bottom: 1px solid var(--rule);
       display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px;
-      border-radius: var(--r-sm);
-      border: 1px solid var(--border);
-      background: var(--bg);
+      transition: background 0.12s;
     }
-    .track-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .track-name { font-size: 12px; font-weight: 500; color: var(--text-primary); flex: 1; }
-    .track-dur {
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      color: var(--text-dim);
-    }
-
-    /* ---- SECTION LAYOUT ---- */
-    .section {
-      padding: 64px 0;
-    }
-    .section.on-warm {
-      background: var(--bg-warm);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .section-head {
-      margin-bottom: 36px;
-    }
-    .section-eyebrow {
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 8px;
-    }
-    .section-title {
-      font-family: 'Lora', serif;
-      font-size: clamp(22px, 2.8vw, 34px);
-      font-weight: 700; line-height: 1.15;
-      letter-spacing: -0.02em;
-    }
-    .section-sub {
-      font-size: 13px; color: var(--text-secondary);
-      line-height: 1.7; margin-top: 10px; max-width: 560px;
-    }
-    .section-head-row {
-      display: flex; align-items: flex-end;
-      justify-content: space-between; gap: 32px;
-      margin-bottom: 36px;
-    }
-    .section-note {
-      font-size: 13px; color: var(--text-secondary);
-      max-width: 300px; text-align: right; line-height: 1.7;
-      flex-shrink: 0;
+    .path-lu-row:last-child { border-bottom: none; }
+    .path-lu-row:hover { background: var(--bg-2); }
+    .plu-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .plu-text { font-size: 12px; font-weight: 500; line-height: 1.35; flex: 1; }
+    .plu-dur { font-size: 10px; color: var(--ink-3); white-space: nowrap; }
+    .plu-opt {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 2px 7px; border-radius: var(--r-pill);
+      background: rgba(250,204,21,0.15); color: #92400E;
     }
 
-    /* ---- AREA FILTER ---- */
-    .area-filter {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 0;
+    .path-citizen-wrap {
+      border: 1.5px solid rgba(37,99,235,0.25);
+      border-radius: var(--r-lg); overflow: hidden;
+      box-shadow: var(--sh); background: var(--bg);
     }
-    .area-filter-inner {
-      max-width: var(--max); margin: 0 auto; padding: 0 40px;
-      display: flex; align-items: flex-start; gap: 24px;
-    }
-    .afl-label {
-      flex-shrink: 0; padding-top: 4px;
-    }
-    .afl-title {
-      font-size: 11px; font-weight: 600; color: var(--text-primary);
-      letter-spacing: 0.01em; display: block; margin-bottom: 3px;
-    }
-    .afl-sub {
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      color: var(--text-dim); white-space: nowrap; letter-spacing: 0.03em;
-    }
-    .afl-divider {
-      width: 1px; background: var(--border-mid);
-      align-self: stretch; flex-shrink: 0; margin: 2px 0;
-    }
-    .afl-pills {
-      display: flex; flex-wrap: wrap; gap: 6px; flex: 1;
-    }
-    .apill {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 6px 12px; border-radius: var(--r-sm);
-      border: 1px solid var(--border-mid);
-      background: var(--surface);
-      cursor: pointer; transition: all 0.15s;
-      font-family: inherit;
-    }
-    .apill:hover {
-      background: var(--bg-warm);
-      border-color: var(--ap-color, var(--accent));
-    }
-    .apill.active {
-      background: var(--ap-color, var(--accent));
-      border-color: var(--ap-color, var(--accent));
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    }
-    .apill-dot {
-      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-      background: var(--ap-color, var(--accent));
-      transition: background 0.15s;
-    }
-    .apill.active .apill-dot { background: rgba(255,255,255,0.6); }
-    .apill-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--ap-color, var(--accent)); font-weight: 500;
-      transition: color 0.15s;
-    }
-    .apill.active .apill-code { color: rgba(255,255,255,0.8); }
-    .apill-name {
-      font-size: 12px; font-weight: 500;
-      color: var(--text-primary); transition: color 0.15s;
-    }
-    .apill.active .apill-name { color: #fff; }
-    .apill:not(.active):hover .apill-name { color: var(--text-primary); }
-    .apill-all {
-      border-color: var(--border-mid); color: var(--text-secondary);
-    }
-    .apill-all.active {
-      background: var(--text-primary); border-color: var(--text-primary);
-    }
-    .apill-all.active .apill-name { color: #fff; }
-
-    /* ---- PATHWAY FORK/MERGE ---- */
-    .pathway-wrap { padding: 8px 0 0; }
-
-    /* Start node (full width, centered) */
-    .path-start, .path-end {
-      display: flex; justify-content: center; margin-bottom: 0;
-    }
-    .path-start-node, .path-end-node {
-      background: var(--surface);
-      border: 1px solid var(--border-mid);
-      border-radius: var(--r-lg);
-      padding: 12px 28px;
-      box-shadow: var(--shadow-sm);
+    .citizen-header {
+      padding: 14px 24px; background: rgba(37,99,235,0.04);
+      border-bottom: 1px solid rgba(37,99,235,0.10);
       display: flex; align-items: center; gap: 12px;
     }
-    .path-start-node .psn-label, .path-end-node .psn-label {
-      font-size: 13px; font-weight: 600; color: var(--text-primary);
+    .cit-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      background: var(--accent); color: #fff;
+      padding: 3px 10px; border-radius: var(--r-pill);
     }
-    .path-start-node .psn-sub, .path-end-node .psn-sub {
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      color: var(--accent); letter-spacing: 0.04em;
-    }
-    .path-sep {
-      width: 2px; height: 24px; background: var(--border-mid); margin: 0 auto;
-    }
-    .path-arrow-row {
-      display: grid; grid-template-columns: 1fr auto 1fr;
-      align-items: center; margin-bottom: 0;
-    }
-    .path-arrow-line {
-      height: 2px; background: var(--border-mid);
-      position: relative;
-    }
-    .path-arrow-line.left::before {
-      content: ''; position: absolute; right: 0; top: -4px;
-      width: 0; height: 0;
-      border-top: 5px solid transparent;
-      border-bottom: 5px solid transparent;
-      border-right: 8px solid var(--private);
-    }
-    .path-arrow-line.right::after {
-      content: ''; position: absolute; left: 0; top: -4px;
-      width: 0; height: 0;
-      border-top: 5px solid transparent;
-      border-bottom: 5px solid transparent;
-      border-left: 8px solid var(--professional);
-    }
-    .path-arrow-dot {
-      width: 10px; height: 10px; border-radius: 50%;
-      background: var(--border-mid); flex-shrink: 0;
-    }
-
-    /* Fork columns */
-    .path-cols {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 16px; margin: 0;
-    }
-    .path-col {
-      border-radius: var(--r-lg);
-      overflow: hidden;
-      border: 2px solid var(--border);
-      box-shadow: var(--shadow-sm);
-    }
-    .path-col.private-col { border-color: rgba(61,143,110,0.3); }
-    .path-col.professional-col { border-color: rgba(160,124,42,0.3); }
-
-    .path-col-header {
-      padding: 14px 20px;
-      display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-    }
-    .private-col .path-col-header { background: var(--private-s); }
-    .professional-col .path-col-header { background: var(--professional-s); }
-
-    .pch-name { font-size: 13px; font-weight: 600; }
-    .pch-meta { font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--text-dim); }
-
-    .path-lu-list { background: var(--surface); }
-    .path-lu {
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: flex-start; gap: 12px;
-      transition: background 0.15s;
-    }
-    .path-lu:last-child { border-bottom: none; }
-    .path-lu:hover { background: var(--bg); }
-    .path-lu-dot {
-      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px;
-    }
-    .path-lu-body { flex: 1; }
-    .path-lu-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
-      margin-bottom: 2px;
-    }
-    .path-lu-title { font-size: 12px; font-weight: 500; color: var(--text-primary); line-height: 1.3; }
-    .path-lu-dur {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; color: var(--text-dim); margin-top: 4px;
-    }
-    .path-lu-badge {
-      font-size: 9px; font-family: 'JetBrains Mono', monospace;
-      padding: 2px 8px; border-radius: 100px;
-      border: 1px solid transparent; flex-shrink: 0;
-      align-self: flex-start;
-    }
-
-    /* Merge/citizen row */
-    .path-merge-sep {
-      display: grid; grid-template-columns: 1fr auto 1fr;
-      align-items: flex-end; height: 28px;
-    }
-    .merge-line {
-      height: 2px; background: var(--border-mid); align-self: flex-end;
-    }
-    .merge-dot {
-      width: 10px; height: 10px; border-radius: 50%;
-      background: var(--citizen); align-self: flex-end;
-      margin-bottom: -4px; position: relative; z-index: 1;
-    }
-    .path-citizen-node {
-      background: linear-gradient(135deg, var(--citizen-s), rgba(117,81,168,0.06));
-      border: 2px solid rgba(117,81,168,0.3);
-      border-radius: var(--r-lg);
-      box-shadow: var(--shadow-md);
-      overflow: hidden;
-    }
-    .citizen-node-header {
-      padding: 16px 24px;
-      border-bottom: 1px solid rgba(117,81,168,0.15);
-      display: flex; align-items: center; gap: 14px;
-    }
-    .citizen-badge {
-      background: var(--citizen); color: #fff;
-      font-size: 9px; font-family: 'JetBrains Mono', monospace;
-      padding: 3px 10px; border-radius: 100px; letter-spacing: 0.05em;
-      flex-shrink: 0;
-    }
-    .citizen-node-title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
-    .citizen-node-sub { font-size: 11px; color: var(--text-secondary); }
-    .citizen-node-body {
-      padding: 14px 24px;
+    .cit-title { font-size: 14px; font-weight: 700; }
+    .cit-note { font-size: 11px; color: var(--ink-2); margin-left: auto; }
+    .citizen-units {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 1px; background: var(--rule);
     }
-    .citizen-comp {
-      padding: 8px 10px;
-      background: rgba(255,255,255,0.7);
-      border-radius: var(--r-sm);
-      border: 1px solid rgba(117,81,168,0.15);
+    .cit-unit {
+      padding: 14px 18px; background: var(--bg);
+      transition: background 0.12s;
     }
-    .citizen-comp-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 8px; letter-spacing: 0.05em; color: var(--citizen);
-      margin-bottom: 2px;
-    }
-    .citizen-comp-name { font-size: 11px; font-weight: 500; color: var(--text-primary); line-height: 1.25; }
+    .cit-unit:hover { background: var(--bg-2); }
+    .cit-unit-code { font-size: 9px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+    .cit-unit-name { font-size: 12px; font-weight: 600; line-height: 1.35; }
 
-    /* ---- FILTER BAR ---- */
-    .filter-bar {
-      display: flex; gap: 8px; align-items: center;
-      margin-bottom: 20px; flex-wrap: wrap;
+    @media (max-width: 640px) {
+      .path-fork-row { grid-template-columns: 1fr; }
+      .citizen-units { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       FILTER PILLS
+    ============================================================ */
+    .filter-section { padding-bottom: 0; }
+    .filter-row {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 32px; align-items: center;
     }
     .filter-lbl {
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      color: var(--text-dim); letter-spacing: 0.07em; margin-right: 2px;
+      font-size: 11px; font-weight: 600; color: var(--ink-3);
+      text-transform: uppercase; letter-spacing: 0.07em;
+      margin-right: 4px;
     }
-    .fbtn {
-      font-size: 12px; font-weight: 500;
-      padding: 6px 16px; border-radius: 100px;
-      border: 1px solid var(--border-mid);
-      background: var(--surface); color: var(--text-secondary);
-      cursor: pointer; transition: all 0.15s;
-      box-shadow: var(--shadow-xs);
+    .fpill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600;
+      padding: 7px 14px; border-radius: var(--r-pill);
+      border: 1.5px solid var(--rule-2); background: var(--bg);
+      color: var(--ink-2); cursor: pointer;
+      transition: all 0.15s; font-family: inherit;
     }
-    .fbtn:hover { background: var(--bg-warm); color: var(--text-primary); }
-    .fbtn.fa  { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(217,119,87,0.3); }
-    .fbtn.fp  { background: var(--private); border-color: var(--private); color: #fff; }
-    .fbtn.fpr { background: var(--professional); border-color: var(--professional); color: #fff; }
-    .fbtn.fc  { background: var(--citizen); border-color: var(--citizen); color: #fff; }
+    .fpill:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+    .fpill.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+    .fpill.on.blue  { background: var(--accent); border-color: var(--accent); }
+    .fpill .pill-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 
-    /* ---- UNIT CARDS ---- */
-    .units-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 16px;
-    }
+    /* ============================================================
+       UNIT CARDS (faithful to livingwithai.me card pattern)
+    ============================================================ */
+    .units-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+
     .unit-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      box-shadow: var(--shadow-sm);
-      transition: box-shadow 0.2s, transform 0.2s;
-      cursor: pointer; overflow: hidden;
+      background: var(--bg);
+      border: 1.5px solid var(--rule-2);
+      border-radius: var(--r-xl);
+      box-shadow: var(--sh);
+      overflow: hidden;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      display: flex; flex-direction: column;
     }
-    .unit-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .unit-card:hover { box-shadow: var(--sh-2); transform: translateY(-3px); }
     .unit-card.hidden { display: none; }
 
-    .uc-top { height: 5px; background: var(--unit-color, var(--accent)); }
-    .uc-body { padding: 22px; }
-
-    .uc-header {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; gap: 10px; margin-bottom: 12px;
+    .uc-top {
+      padding: 24px 24px 0;
     }
-    .uc-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--unit-color, var(--accent)); line-height: 1.4;
+    .uc-icon-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
     }
-    .uc-tracks { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
-    .uc-track {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; padding: 2px 8px; border-radius: 100px;
-      border: 1px solid transparent; letter-spacing: 0.03em;
+    .uc-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+    }
+    .uc-unit-code {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .uc-area-chip {
+      font-size: 10px; font-weight: 600; padding: 3px 9px;
+      border-radius: var(--r-pill); margin-left: auto;
+      border: 1px solid transparent;
     }
     .uc-title {
-      font-family: 'Lora', serif;
-      font-size: 17px; font-weight: 600; line-height: 1.25;
-      margin-bottom: 10px; letter-spacing: -0.01em;
+      font-size: 18px; font-weight: 800; letter-spacing: -0.025em;
+      line-height: 1.2; margin-bottom: 10px; color: var(--ink);
     }
     .uc-question {
-      font-size: 12px; font-style: italic; color: var(--text-secondary);
-      line-height: 1.65; margin-bottom: 14px;
-      padding-left: 12px;
-      border-left: 2px solid var(--unit-color, var(--accent));
-      font-family: 'Lora', serif;
+      font-size: 13px; color: var(--ink-2); line-height: 1.7;
+      margin-bottom: 16px; font-style: italic;
     }
-    .uc-meta { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
-    .uc-m {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      color: var(--text-dim); letter-spacing: 0.03em;
-    }
-    .comp-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
-    .comp-chip {
-      padding: 5px 10px; border-radius: var(--r-sm); border: 1px solid transparent;
-    }
-    .chip-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 8px; letter-spacing: 0.05em; opacity: 0.75; display: block; margin-bottom: 1px;
-    }
-    .chip-name { font-size: 10px; font-weight: 500; line-height: 1.2; }
-    .expand-btn {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      color: var(--unit-color, var(--accent));
-      background: none; border: none; cursor: pointer;
-      letter-spacing: 0.05em; padding: 0; transition: gap 0.2s;
-    }
-    .expand-btn:hover { gap: 10px; }
-    .exp-arr { transition: transform 0.3s; display: inline-block; }
-    .unit-card.open .exp-arr { transform: rotate(90deg); }
 
-    /* Expandable */
-    .uc-detail { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-    .unit-card.open .uc-detail { max-height: 2000px; }
+    .uc-tracks-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .uc-track-pill {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+      padding: 3px 10px; border-radius: var(--r-pill); text-transform: uppercase;
+    }
+
+    .uc-comps { display: flex; flex-direction: column; gap: 5px; margin-bottom: 20px; }
+    .uc-comp {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--ink-2); line-height: 1.4;
+    }
+    .uc-comp::before {
+      content: ''; width: 4px; height: 4px; border-radius: 50%;
+      background: var(--ink-3); flex-shrink: 0;
+    }
+
+    .uc-divider { border: none; border-top: 1px solid var(--rule); margin: 0 24px; }
+
+    .uc-bottom {
+      padding: 16px 24px; display: flex;
+      align-items: center; justify-content: space-between;
+      margin-top: auto;
+    }
+    .uc-meta-row { display: flex; gap: 16px; align-items: center; }
+    .uc-meta-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--ink-3); }
+
+    .uc-expand-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; color: var(--accent);
+      background: var(--accent-light); border: 1px solid var(--accent-border);
+      padding: 7px 14px; border-radius: var(--r-pill);
+      cursor: pointer; transition: all 0.15s; font-family: inherit; border-width: 1px;
+    }
+    .uc-expand-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .exp-caret { transition: transform 0.3s; display: inline-block; }
+    .unit-card.open .exp-caret { transform: rotate(90deg); }
+
+    /* Expand panel */
+    .uc-detail { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+    .unit-card.open .uc-detail { max-height: 2400px; }
     .uc-detail-inner {
-      border-top: 1px solid var(--border);
-      padding: 22px; background: var(--bg);
+      border-top: 1px solid var(--rule);
+      padding: 24px;
+      background: var(--bg-2);
+      display: flex; flex-direction: column; gap: 22px;
     }
-    .det-block { margin-bottom: 18px; }
-    .det-block:last-child { margin-bottom: 0; }
-    .det-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--text-dim); margin-bottom: 10px;
+    .det-block {}
+    .det-lbl {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;
     }
-    .obj-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .obj-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
     .obj-list li {
-      font-size: 12px; color: var(--text-secondary);
-      padding-left: 16px; position: relative; line-height: 1.6;
+      font-size: 13px; color: var(--ink-2); padding-left: 16px;
+      position: relative; line-height: 1.65;
     }
     .obj-list li::before {
       content: ''; position: absolute; left: 4px; top: 8px;
       width: 5px; height: 5px; border-radius: 50%;
-      background: var(--unit-color, var(--accent));
+      background: var(--unit-c, var(--accent));
     }
-    .msg-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--unit-color, var(--accent));
-      border-radius: var(--r-sm);
-      padding: 11px 14px;
-      font-size: 12px; color: var(--text-secondary);
-      line-height: 1.7; margin-bottom: 7px;
+    .key-msgs { display: flex; flex-direction: column; gap: 7px; }
+    .key-msg {
+      font-size: 12px; color: var(--ink-2); line-height: 1.7;
+      padding: 11px 14px; background: var(--bg);
+      border-radius: var(--r); border-left: 2.5px solid var(--unit-c, var(--accent));
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
     }
-    .strategy-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .strat-tags { display: flex; gap: 6px; flex-wrap: wrap; }
     .stag {
-      font-size: 11px; padding: 5px 10px; border-radius: var(--r-sm);
-      background: var(--surface); border: 1px solid var(--border); color: var(--text-secondary);
+      font-size: 11px; padding: 5px 12px; border-radius: var(--r-pill);
+      background: var(--bg); border: 1px solid var(--rule-2);
+      color: var(--ink-2);
     }
-    .assmt-row { display: flex; gap: 10px; align-items: flex-start; }
-    .assmt-chip {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 8px; padding: 3px 8px; border-radius: 100px;
-      letter-spacing: 0.05em; white-space: nowrap; flex-shrink: 0;
-      border: 1px solid transparent;
+    .assmt-items { display: flex; flex-direction: column; gap: 7px; }
+    .assmt-item { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: var(--ink-2); line-height: 1.6; }
+    .assmt-tag {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 3px 9px; border-radius: var(--r-pill);
+      background: var(--accent-light); color: var(--accent);
+      border: 1px solid var(--accent-border); flex-shrink: 0;
     }
-    .assmt-text { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
 
-    /* ---- FRAMEWORK GRID ---- */
-    .fw-callout {
-      background: var(--surface); border: 1px solid var(--border);
-      border-left: 3px solid var(--accent); border-radius: var(--r);
-      padding: 16px 20px; font-size: 13px; color: var(--text-secondary);
-      line-height: 1.8; margin-bottom: 24px; box-shadow: var(--shadow-xs);
-    }
-    .fw-callout strong { color: var(--text-primary); font-weight: 600; }
-    .fw-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-    }
-    .fw-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-lg); padding: 20px;
-      box-shadow: var(--shadow-xs);
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .fw-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
-    .fw-card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-    .fw-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-    .fw-area-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
-    }
-    .fw-area-name { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
-    .fw-area-plain { font-size: 11px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; font-style: italic; }
-    .fw-subs { display: flex; flex-direction: column; gap: 5px; }
-    .fw-sub {
-      padding: 7px 10px; background: var(--bg); border-radius: var(--r-sm);
-      border-left: 2px solid var(--area-col);
-      display: flex; gap: 10px; align-items: baseline;
-    }
-    .fw-sub-code {
-      font-family: 'JetBrains Mono', monospace; font-size: 9px; flex-shrink: 0; padding-top: 1px;
-    }
-    .fw-sub-text { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
-
-    /* ---- ASSESSMENT ---- */
-    .flow-track {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 0; margin-bottom: 24px;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-lg); overflow: hidden;
-      box-shadow: var(--shadow-sm);
-    }
+    /* ============================================================
+       ASSESSMENT FLOW
+    ============================================================ */
+    .flow-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
     .flow-card {
-      padding: 22px; position: relative;
-      border-right: 1px solid var(--border);
+      background: var(--bg); border: 1.5px solid var(--rule-2);
+      border-radius: var(--r-xl); padding: 28px 22px;
+      box-shadow: var(--sh); transition: box-shadow 0.2s, transform 0.2s;
     }
-    .flow-card:last-child { border-right: none; }
-    .flow-card::after {
-      content: '\203A';
-      position: absolute; right: -9px; top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-dim); font-size: 18px; z-index: 2;
-      background: var(--surface); padding: 0 2px;
+    .flow-card:hover { box-shadow: var(--sh-2); transform: translateY(-2px); }
+    .flow-step-n {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px;
     }
-    .flow-card:last-child::after { display: none; }
-    .flow-step-num {
-      font-family: 'JetBrains Mono', monospace; font-size: 9px;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--text-dim); margin-bottom: 10px;
-    }
-    .flow-step-icon {
-      width: 34px; height: 34px; border-radius: 9px;
-      background: var(--accent-soft); border: 1px solid var(--accent-mid);
+    .flow-card-icon {
+      width: 42px; height: 42px; border-radius: 11px;
+      background: var(--accent); color: #fff;
       display: flex; align-items: center; justify-content: center;
-      font-size: 15px; margin-bottom: 12px;
+      font-size: 18px; margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.30);
     }
-    .flow-step-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
-    .flow-step-tool {
-      font-family: 'JetBrains Mono', monospace; font-size: 9px;
-      color: var(--accent); margin-bottom: 8px; letter-spacing: 0.03em;
+    .flow-card-title { font-size: 15px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.02em; }
+    .flow-card-tool {
+      font-size: 10px; font-weight: 600; color: var(--accent);
+      margin-bottom: 10px; letter-spacing: 0.03em;
     }
-    .flow-step-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.65; }
+    .flow-card-desc { font-size: 12px; color: var(--ink-2); line-height: 1.7; }
 
-    .ksa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px; }
+    .ksa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .ksa-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-xs);
+      background: var(--bg); border: 1.5px solid var(--rule-2);
+      border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sh);
     }
-    .ksa-head { padding: 16px 18px 14px; border-bottom: 1px solid var(--border); }
-    .ksa-letter { font-family: 'Lora', serif; font-size: 26px; font-weight: 700; line-height: 1; margin-bottom: 2px; }
-    .ksa-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
-    .ksa-desc { font-size: 11px; color: var(--text-secondary); }
-    .ksa-items { padding: 14px 18px; display: flex; flex-direction: column; gap: 7px; }
+    .ksa-head {
+      padding: 20px 22px 16px; border-bottom: 1px solid var(--rule);
+    }
+    .ksa-letter {
+      font-size: 44px; font-weight: 900; line-height: 1;
+      letter-spacing: -0.05em; margin-bottom: 2px;
+    }
+    .ksa-name { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+    .ksa-desc { font-size: 12px; color: var(--ink-2); }
+    .ksa-body { padding: 16px 22px; display: flex; flex-direction: column; gap: 8px; }
     .ksa-item {
-      background: var(--bg); border-radius: var(--r-sm);
-      padding: 9px 11px; font-size: 11px; color: var(--text-secondary); line-height: 1.6;
+      background: var(--bg-2); border-radius: var(--r);
+      padding: 10px 12px; font-size: 11px; color: var(--ink-2); line-height: 1.6;
     }
-    .ksa-item-lvl {
-      font-family: 'JetBrains Mono', monospace; font-size: 8px;
-      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 3px;
+    .ksa-item-lv {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 3px;
     }
     .lv-f { color: var(--c1); } .lv-i { color: var(--c2); } .lv-a { color: var(--c3); }
 
-    .level-row {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-xs);
+    @media (max-width: 900px) {
+      .flow-grid { grid-template-columns: 1fr 1fr; }
+      .ksa-grid { grid-template-columns: 1fr; }
     }
-    .lv-block { padding: 16px 20px; border-right: 1px solid var(--border); }
-    .lv-block:last-child { border-right: none; }
-    .lv-block-label {
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; font-weight: 500;
-    }
-    .lv-block-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
 
-    /* ---- METHODOLOGY ---- */
+    /* ============================================================
+       DIGCOMPRO FRAMEWORK
+    ============================================================ */
+    .fw-intro {
+      background: var(--accent-light); border: 1px solid var(--accent-border);
+      border-radius: var(--r-lg); padding: 18px 22px;
+      font-size: 13px; color: var(--ink-2); line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .fw-intro strong { color: var(--ink); font-weight: 700; }
+
+    .fw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .fw-card {
+      background: var(--bg); border: 1.5px solid var(--rule-2);
+      border-radius: var(--r-xl); padding: 22px;
+      box-shadow: var(--sh); transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .fw-card:hover {
+      box-shadow: var(--sh-2); transform: translateY(-2px);
+      border-color: var(--area-c, var(--accent));
+    }
+    .fw-top { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+    .fw-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .fw-code { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .fw-name { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .fw-plain { font-size: 12px; color: var(--ink-2); line-height: 1.65; margin-bottom: 14px; }
+    .fw-subs { display: flex; flex-direction: column; gap: 6px; }
+    .fw-sub {
+      padding: 8px 12px; background: var(--bg-2);
+      border-radius: var(--r); border-left: 2px solid var(--area-c, var(--accent));
+      display: flex; gap: 10px; align-items: baseline;
+    }
+    .fw-sub-code { font-size: 9px; font-weight: 700; letter-spacing: 0.05em; flex-shrink: 0; }
+    .fw-sub-text { font-size: 11px; color: var(--ink-2); line-height: 1.5; }
+
+    @media (max-width: 768px) { .fw-grid { grid-template-columns: 1fr; } }
+
+    /* ============================================================
+       METHODOLOGY (DARK)
+    ============================================================ */
     .method-inner {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-xl); padding: 44px;
-      box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: start;
     }
-    .method-inner::before {
-      content: '';
-      position: absolute; right: -60px; top: -60px;
-      width: 300px; height: 300px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(217,119,87,0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
-    .method-title {
-      font-family: 'Lora', serif; font-size: 24px; font-weight: 700;
-      line-height: 1.22; letter-spacing: -0.02em; margin-bottom: 16px;
-    }
-    .method-body { font-size: 13px; color: var(--text-secondary); line-height: 1.9; }
-    .method-body em { font-style: italic; color: var(--text-primary); }
-    .principles { display: flex; flex-direction: column; gap: 9px; }
-    .principle {
-      display: flex; gap: 12px; align-items: flex-start;
-      padding: 14px; background: var(--bg);
-      border-radius: var(--r); border: 1px solid var(--border);
-    }
-    .pr-icon {
-      width: 30px; height: 30px; border-radius: 8px;
-      background: var(--accent-soft); border: 1px solid var(--accent-mid);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; flex-shrink: 0;
-    }
-    .pr-title { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
-    .pr-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.55; }
+    .method-h { font-size: clamp(22px, 2.8vw, 32px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.2; color: #fff; margin-bottom: 18px; }
+    .method-p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.85; margin-bottom: 14px; }
+    .method-p em { font-style: italic; color: rgba(255,255,255,0.85); }
 
-    /* ---- FOOTER ---- */
+    .principles { display: flex; flex-direction: column; gap: 10px; }
+    .principle {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 18px; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--r-lg); transition: background 0.15s;
+    }
+    .principle:hover { background: rgba(255,255,255,0.07); }
+    .pr-icon {
+      width: 34px; height: 34px; border-radius: 9px;
+      background: var(--accent); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.4);
+    }
+    .pr-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .pr-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+    @media (max-width: 768px) { .method-inner { grid-template-columns: 1fr; gap: 36px; } }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
     footer {
-      border-top: 1px solid var(--border);
-      background: var(--surface);
-      padding: 20px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--rule);
+      padding: 28px 0;
     }
     .footer-inner {
-      max-width: var(--max); margin: 0 auto; padding: 0 40px;
-      display: flex; justify-content: space-between; align-items: center;
+      max-width: var(--max); margin: 0 auto; padding: 0 48px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
     }
-    .footer-text {
-      font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--text-dim);
+    .footer-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .footer-text { font-size: 12px; color: var(--ink-3); }
+    .footer-links { display: flex; gap: 4px; }
+    .footer-links a {
+      font-size: 12px; color: var(--ink-3); text-decoration: none;
+      padding: 4px 10px; border-radius: 6px; transition: color 0.15s, background 0.15s;
     }
+    .footer-links a:hover { color: var(--accent); background: var(--accent-light); }
 
-    /* ---- ANIMATIONS ---- */
-    @keyframes riseIn {
-      from { opacity: 0; transform: translateY(14px); }
+    /* ============================================================
+       ANIMATIONS & SCROLL REVEAL
+    ============================================================ */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 960px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-      .hero-panel { display: none; }
-      .path-cols { grid-template-columns: 1fr; }
-      .path-arrow-row { display: none; }
-      .fw-grid, .ksa-grid, .level-row { grid-template-columns: 1fr; }
-      .method-grid { grid-template-columns: 1fr; gap: 28px; }
-      .flow-track { grid-template-columns: 1fr 1fr; }
-      .flow-card::after { display: none; }
-      .citizen-node-body { grid-template-columns: 1fr; }
-      .section-head-row { flex-direction: column; gap: 8px; }
-      .section-note { text-align: left; max-width: none; }
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
     }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* stagger children */
+    .stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0.0s; }
+    .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 0.07s; }
+    .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.14s; }
+    .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.21s; }
+    .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 0.28s; }
+    .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 0.35s; }
+    .stagger.visible > *:nth-child(7) { opacity:1; transform:none; transition-delay: 0.35s; }
+    .stagger.visible > *:nth-child(8) { opacity:1; transform:none; transition-delay: 0.35s; }
+
     @media (max-width: 640px) {
-      .wrap { padding: 0 20px; }
-      .header-inner { padding: 0 20px; }
-      nav { display: none; }
-      .hero { padding: 48px 0 40px; }
+      section { padding: 60px 0; }
+      .hero { padding: 64px 0 56px; }
+      .hero-h1 { font-size: 44px; }
+      .nav-inner, .footer-inner { padding: 0 20px; }
       .hero-inner { padding: 0 20px; }
-      .ftabs-inner { padding: 0 20px; }
-      .section { padding: 44px 0; }
-      .flow-track { grid-template-columns: 1fr; }
+      .impact-inner { padding: 0 20px; }
       .units-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="header-inner">
-    <div class="header-left">
-      <div class="logo-mark">DS</div>
-      <span class="header-name">Digital STARs <span>/ Curriculum Architecture</span></span>
-    </div>
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header id="site-header">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <div class="logo-sq">DS</div>
+      <span class="logo-text">Digital STARs <span>/ Curriculum</span></span>
+    </a>
     <nav>
       <a href="#pathway">Pathway</a>
-      <a href="#units">Units</a>
-      <a href="#framework">Framework</a>
+      <a href="#curriculum">Curriculum</a>
       <a href="#assessment">Assessment</a>
+      <a href="#framework">Framework</a>
     </nav>
-    <span class="header-pill">World Bank · Romania · 2024-2026</span>
+    <span class="nav-pill">World Bank · Romania NRRP</span>
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
+<!-- ============================================================
+     HERO
+============================================================ -->
+<div class="hero">
   <div class="hero-inner">
-    <div class="hero-text">
-      <div class="hero-kicker">Digital Skills Training for All Romanians · World Bank NRRP</div>
-      <h1 class="hero-title">Digital <em>STARs</em></h1>
-      <p class="hero-subtitle">A National Digital Literacy Programme</p>
-      <p class="hero-desc">
-        A competency-based blended learning programme for Romanian citizens, delivered through a
-        national network of public libraries. Built on DigCompRo - Romania's national digital
-        competence standard - this curriculum maps each learning unit to measurable outcomes
-        across three life contexts: private, professional, and civic.
-      </p>
-    </div>
-    <div class="hero-panel">
-      <p class="panel-title">Programme at a Glance</p>
-      <div class="stats-grid">
-        <div class="stat">
-          <div class="stat-num accent">100K</div>
-          <div class="stat-label">Target Citizens</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">6</div>
-          <div class="stat-label">Learning Units</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">1,500</div>
-          <div class="stat-label">Librarian Trainers</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">~10h</div>
-          <div class="stat-label">Per Learner</div>
-        </div>
-      </div>
-      <div class="panel-tracks">
-        <div class="panel-track">
-          <div class="track-dot" style="background:var(--private)"></div>
-          <span class="track-name">Private Track</span>
-          <span class="track-dur">5 hrs</span>
-        </div>
-        <div class="panel-track">
-          <div class="track-dot" style="background:var(--professional)"></div>
-          <span class="track-name">Professional Track</span>
-          <span class="track-dur">6 hrs</span>
-        </div>
-        <div class="panel-track">
-          <div class="track-dot" style="background:var(--citizen)"></div>
-          <span class="track-name">Citizen Track</span>
-          <span class="track-dur">2 hrs · All Learners</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- AREA FILTER -->
-<div class="area-filter" id="framework">
-  <div class="area-filter-inner">
-    <div class="afl-label">
-      <span class="afl-title">Filter by competency area</span>
-      <span class="afl-sub">DigCompRo framework</span>
-    </div>
-    <div class="afl-divider"></div>
-    <div class="afl-pills">
-      <button class="apill" style="--ap-color:var(--c0)" onclick="filterByArea('0',event)">
-        <span class="apill-dot"></span>
-        <span class="apill-code">Area 0</span>
-        <span class="apill-name">Devices and Foundations</span>
-      </button>
-      <button class="apill" style="--ap-color:var(--c1)" onclick="filterByArea('1',event)">
-        <span class="apill-dot"></span>
-        <span class="apill-code">Area 1</span>
-        <span class="apill-name">Information and Data Literacy</span>
-      </button>
-      <button class="apill" style="--ap-color:var(--c2)" onclick="filterByArea('2',event)">
-        <span class="apill-dot"></span>
-        <span class="apill-code">Area 2</span>
-        <span class="apill-name">Communication and Collaboration</span>
-      </button>
-      <button class="apill" style="--ap-color:var(--c3)" onclick="filterByArea('3',event)">
-        <span class="apill-dot"></span>
-        <span class="apill-code">Area 3</span>
-        <span class="apill-name">Digital Content Creation</span>
-      </button>
-      <button class="apill" style="--ap-color:var(--c4)" onclick="filterByArea('4',event)">
-        <span class="apill-dot"></span>
-        <span class="apill-code">Area 4</span>
-        <span class="apill-name">Safety and Security</span>
-      </button>
-      <button class="apill" style="--ap-color:var(--c5)" onclick="filterByArea('5',event)">
-        <span class="apill-dot"></span>
-        <span class="apill-code">Area 5</span>
-        <span class="apill-name">Problem Solving and Entrepreneurship</span>
-      </button>
-      <button class="apill apill-all active" onclick="filterByArea('all',event)">
-        <span class="apill-name">Show All</span>
-      </button>
+    <div class="hero-eyebrow">Instructional Design Portfolio</div>
+    <h1 class="hero-h1">Digital STARs —<br><em>Bridging Romania's digital divide.</em></h1>
+    <p class="hero-sub">A curriculum architecture for 100,000 Romanian citizens. Six learning units, three learner tracks, backward-designed from DigCompRo outcomes and delivered through 700+ public libraries.</p>
+    <div class="hero-actions">
+      <a href="#curriculum" class="btn-primary">Explore the Curriculum →</a>
+      <a href="#framework" class="btn-ghost">View DigCompRo Framework</a>
     </div>
   </div>
 </div>
 
-<!-- PATHWAY -->
-<section class="section" id="pathway">
+<!-- ============================================================
+     IMPACT STRIP
+============================================================ -->
+<div class="impact-strip">
+  <div class="impact-inner">
+    <div class="impact-cell">
+      <div class="impact-n"><span class="accent-n">100K</span></div>
+      <div class="impact-l">Citizens to train</div>
+      <div class="impact-d">By June 2026</div>
+    </div>
+    <div class="impact-cell">
+      <div class="impact-n">6</div>
+      <div class="impact-l">Learning units</div>
+      <div class="impact-d">Mapped to DigCompRo Areas 0–5</div>
+    </div>
+    <div class="impact-cell">
+      <div class="impact-n">3</div>
+      <div class="impact-l">Learner tracks</div>
+      <div class="impact-d">Private · Professional · Citizen</div>
+    </div>
+    <div class="impact-cell">
+      <div class="impact-n">700<span style="font-size:22px;font-weight:600">+</span></div>
+      <div class="impact-l">Library delivery sites</div>
+      <div class="impact-d">Across Romania</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     LEARNING PATHWAY
+============================================================ -->
+<section id="pathway">
   <div class="wrap">
-    <div class="section-head-row">
-      <div class="section-head" style="margin-bottom:0">
-        <p class="section-eyebrow">02 - Learning Journey</p>
-        <h2 class="section-title">Three Life Tracks</h2>
-        <p class="section-sub">Learners are routed to Private or Professional via a 30-minute pre-assessment. The Citizen track is mandatory for everyone and runs at the end of all paths.</p>
-      </div>
+    <div class="section-head reveal">
+      <span class="section-label">02 — Learning Journey</span>
+      <h2 class="section-title">Three Life Tracks</h2>
+      <p class="section-sub">All learners complete the mandatory Citizen track. From there, they follow the Private or Professional track based on their life context.</p>
     </div>
 
     <div class="pathway-wrap">
-      <!-- Start -->
-      <div class="path-start">
-        <div class="path-start-node">
-          <div>
-            <div class="psn-sub">Entry Point</div>
-            <div class="psn-label">Pre-Assessment · EU Digital Skills Indicator · 30 min</div>
+
+      <div class="path-label">ALL LEARNERS START HERE</div>
+      <div class="path-full-node reveal">
+        <div class="path-icon">📋</div>
+        <div>
+          <div class="path-node-title">EU Digital Skills Indicator Pre-Test</div>
+          <div class="path-node-sub">30-min diagnostic · establishes baseline proficiency level</div>
+        </div>
+      </div>
+
+      <div class="path-connector"><div class="path-connector-line"></div></div>
+
+      <div class="path-fork-row stagger">
+        <div class="path-branch private">
+          <div class="path-branch-header">
+            <div class="pbh-dot" style="background:var(--c1)"></div>
+            <div class="pbh-name">Private Life Track</div>
+            <div class="pbh-dur">5 hrs</div>
+          </div>
+          <div class="path-lu-row"><div class="plu-dot" style="background:var(--c0)"></div><div class="plu-text">LU1 · Your Devices &amp; the Internet</div><div class="plu-dur">60 min</div></div>
+          <div class="path-lu-row"><div class="plu-dot" style="background:var(--c3)"></div><div class="plu-text">LU2 · Staying Safe Online</div><div class="plu-dur">60 min</div></div>
+          <div class="path-lu-row"><div class="plu-dot" style="background:var(--c2)"></div><div class="plu-text">LU3 · Communicating Online</div><div class="plu-dur">60 min</div></div>
+          <div class="path-lu-row"><div class="plu-dot" style="background:var(--c4)"></div><div class="plu-text">LU4 · Finding Information Online</div><div class="plu-dur">60 min</div></div>
+          <div class="path-lu-row"><div class="plu-dot" style="background:var(--c2)"></div><div class="plu-text">LU5 · Creating Content Online <span class="plu-opt">opt.</span></div><div class="plu-dur">60 min</div></div>
+        </div>
+        <div class="path-branch professional">
+          <div class="path-branch-header">
+            <div class="pbh-dot" style="background:var(--c2)"></div>
+            <div class="pbh-name">Professional Life Track</div>
+            <div class="pbh-dur">6 hrs</div>
+          </div>
+          <div class="path-lu-row"><div class="plu-dot" style="background:var(--c0)"></div><div class="plu-text">LU1 · Your Devices &amp; the Internet</div><div class="plu-dur">60 min</div></div>
+          <div class="path-lu-row"><div class="plu-dot" style="background:var(--c3)"></div><div class="plu-text">LU2 · Staying Safe Online</div><div class="plu-dur">60 min</div></div>
+          <div class="path-lu-row"><div class="plu-dot" style="background:var(--c2)"></div><div class="plu-text">LU3 · Communicating Online</div><div class="plu-dur">60 min</div></div>
+          <div class="path-lu-row"><div class="plu-dot" style="background:var(--c4)"></div><div class="plu-text">LU4 · Finding Information Online</div><div class="plu-dur">60 min</div></div>
+          <div class="path-lu-row"><div class="plu-dot" style="background:var(--c2)"></div><div class="plu-text">LU5 · Creating Content Online</div><div class="plu-dur">60 min</div></div>
+          <div class="path-lu-row"><div class="plu-dot" style="background:var(--c4)"></div><div class="plu-text">LU4+ · Advanced Information Skills</div><div class="plu-dur">60 min</div></div>
+        </div>
+      </div>
+
+      <div class="path-connector"><div class="path-connector-line"></div></div>
+      <div class="path-label">MANDATORY FOR ALL LEARNERS</div>
+
+      <div class="path-citizen-wrap reveal">
+        <div class="citizen-header">
+          <div class="cit-badge">Citizen Track · 2 hrs</div>
+          <div class="cit-title">Digital Citizen Life</div>
+          <div class="cit-note">Mandatory foundation for every learner</div>
+        </div>
+        <div class="citizen-units">
+          <div class="cit-unit">
+            <div class="cit-unit-code">LU6a · Area 2+5</div>
+            <div class="cit-unit-name">Communicating as a Citizen</div>
+          </div>
+          <div class="cit-unit">
+            <div class="cit-unit-code">LU6b · Area 5</div>
+            <div class="cit-unit-name">e-Government &amp; Public Services</div>
+          </div>
+          <div class="cit-unit">
+            <div class="cit-unit-code">LU6c · Area 4+5</div>
+            <div class="cit-unit-name">Rights, RoEID &amp; Digital Life</div>
           </div>
         </div>
       </div>
 
-      <!-- Fork indicator -->
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:flex-end;height:32px;gap:0">
-        <div style="height:2px;background:var(--border-mid);align-self:flex-end;border-top-left-radius:4px"></div>
-        <div style="width:2px;height:32px;background:var(--border-mid)"></div>
-        <div style="height:2px;background:var(--border-mid);align-self:flex-end;border-top-right-radius:4px"></div>
-      </div>
-
-      <!-- Two-column fork -->
-      <div class="path-cols">
-
-        <!-- Private -->
-        <div class="path-col private-col">
-          <div class="path-col-header">
-            <div>
-              <div class="pch-name" style="color:var(--private)">Private Track</div>
-              <div class="pch-meta">Everyday personal digital life · Mobile-optimised</div>
-            </div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--private)">5 hrs</span>
-          </div>
-          <div class="path-lu-list">
-            <div class="path-lu">
-              <div class="path-lu-dot" style="background:var(--c0)"></div>
-              <div class="path-lu-body">
-                <div class="path-lu-code" style="color:var(--c0)">LU 1 · Area 0 - Devices</div>
-                <div class="path-lu-title">Basics of Digital Devices and Internet</div>
-                <div class="path-lu-dur">1 hr</div>
-              </div>
-            </div>
-            <div class="path-lu">
-              <div class="path-lu-dot" style="background:var(--c4)"></div>
-              <div class="path-lu-body">
-                <div class="path-lu-code" style="color:var(--c4)">LU 2 · Area 4 - Safety</div>
-                <div class="path-lu-title">Security and Safety Settings</div>
-                <div class="path-lu-dur">1 hr</div>
-              </div>
-            </div>
-            <div class="path-lu">
-              <div class="path-lu-dot" style="background:var(--c2)"></div>
-              <div class="path-lu-body">
-                <div class="path-lu-code" style="color:var(--c2)">LU 3 · Area 2 - Communication</div>
-                <div class="path-lu-title">Communications for Private Life</div>
-                <div class="path-lu-dur">1 hr</div>
-              </div>
-            </div>
-            <div class="path-lu">
-              <div class="path-lu-dot" style="background:var(--c1)"></div>
-              <div class="path-lu-body">
-                <div class="path-lu-code" style="color:var(--c1)">LU 4 · Area 1 - Information</div>
-                <div class="path-lu-title">Seeking Information and Researching Online</div>
-                <div class="path-lu-dur">1 hr</div>
-              </div>
-            </div>
-            <div class="path-lu">
-              <div class="path-lu-dot" style="background:var(--c3)"></div>
-              <div class="path-lu-body">
-                <div class="path-lu-code" style="color:var(--c3)">LU 5 · Area 3 - Content</div>
-                <div class="path-lu-title">Content Creation and Editing</div>
-                <div class="path-lu-dur">1 hr</div>
-              </div>
-              <span class="path-lu-badge" style="background:var(--c3s);border-color:rgba(192,79,63,0.2);color:var(--c3)">Standard</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Professional -->
-        <div class="path-col professional-col">
-          <div class="path-col-header">
-            <div>
-              <div class="pch-name" style="color:var(--professional)">Professional Track</div>
-              <div class="pch-meta">Work and employment contexts · Desktop/laptop</div>
-            </div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--professional)">6 hrs</span>
-          </div>
-          <div class="path-lu-list">
-            <div class="path-lu">
-              <div class="path-lu-dot" style="background:var(--c0)"></div>
-              <div class="path-lu-body">
-                <div class="path-lu-code" style="color:var(--c0)">LU 1 · Area 0 - Devices</div>
-                <div class="path-lu-title">Basics of Digital Devices and Internet</div>
-                <div class="path-lu-dur">1 hr</div>
-              </div>
-            </div>
-            <div class="path-lu">
-              <div class="path-lu-dot" style="background:var(--c4)"></div>
-              <div class="path-lu-body">
-                <div class="path-lu-code" style="color:var(--c4)">LU 2 · Area 4 - Safety</div>
-                <div class="path-lu-title">Security and Safety Settings</div>
-                <div class="path-lu-dur">1 hr</div>
-              </div>
-            </div>
-            <div class="path-lu">
-              <div class="path-lu-dot" style="background:var(--c2)"></div>
-              <div class="path-lu-body">
-                <div class="path-lu-code" style="color:var(--c2)">LU 3 · Area 2 - Communication</div>
-                <div class="path-lu-title">Communications for Professional Life</div>
-                <div class="path-lu-dur">1 hr · advanced scope</div>
-              </div>
-            </div>
-            <div class="path-lu">
-              <div class="path-lu-dot" style="background:var(--c1)"></div>
-              <div class="path-lu-body">
-                <div class="path-lu-code" style="color:var(--c1)">LU 4 · Area 1 - Information</div>
-                <div class="path-lu-title">Research, Job Search and Professional Platforms</div>
-                <div class="path-lu-dur">1 hr · professional scope</div>
-              </div>
-            </div>
-            <div class="path-lu">
-              <div class="path-lu-dot" style="background:var(--c3)"></div>
-              <div class="path-lu-body">
-                <div class="path-lu-code" style="color:var(--c3)">LU 5 · Area 3 - Content</div>
-                <div class="path-lu-title">Professional Content Creation and Editing</div>
-                <div class="path-lu-dur" style="color:var(--c3);font-weight:500">2 hrs - extended</div>
-              </div>
-              <span class="path-lu-badge" style="background:var(--c3s);border-color:rgba(192,79,63,0.2);color:var(--c3)">Extended</span>
-            </div>
-          </div>
+      <div class="path-connector"><div class="path-connector-line"></div></div>
+      <div class="path-full-node reveal">
+        <div class="path-icon" style="background:var(--c1)">✓</div>
+        <div>
+          <div class="path-node-title">DSI Post-Test &amp; Certification Bank</div>
+          <div class="path-node-sub">30-min DSI post-test · retakeable certification bank · DigCompRo certificate</div>
         </div>
       </div>
 
-      <!-- Merge line -->
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:flex-start;height:28px;">
-        <div style="height:2px;background:var(--border-mid);align-self:flex-start;border-bottom-left-radius:4px"></div>
-        <div style="width:2px;height:28px;background:var(--border-mid)"></div>
-        <div style="height:2px;background:var(--border-mid);align-self:flex-start;border-bottom-right-radius:4px"></div>
-      </div>
-
-      <!-- Citizen (mandatory for all) -->
-      <div class="path-citizen-node">
-        <div class="citizen-node-header">
-          <span class="citizen-badge">MANDATORY FOR ALL</span>
-          <div>
-            <div class="citizen-node-title">LU 6 - Citizen Life and eGovernment</div>
-            <div class="citizen-node-sub">Areas 2 and 5 · 2 hrs · Both tracks converge here</div>
-          </div>
-        </div>
-        <div class="citizen-node-body">
-          <div class="citizen-comp">
-            <div class="citizen-comp-code">Area 2 · 2.3</div>
-            <div class="citizen-comp-name">Civic Participation and Digital Rights</div>
-          </div>
-          <div class="citizen-comp">
-            <div class="citizen-comp-code">Area 2 · 2.4</div>
-            <div class="citizen-comp-name">Managing Your Digital Identity</div>
-          </div>
-          <div class="citizen-comp">
-            <div class="citizen-comp-code">Area 5 · 5.4</div>
-            <div class="citizen-comp-name">Digital Entrepreneurship and eGov Services</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- End -->
-      <div style="width:2px;height:24px;background:var(--border-mid);margin:0 auto"></div>
-      <div class="path-end">
-        <div class="path-end-node">
-          <div>
-            <div class="psn-sub">Completion</div>
-            <div class="psn-label">Certification Assessment · Randomised Item Bank · Retakeable</div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- UNIT EXPLORER -->
-<section class="section on-warm" id="units">
+<!-- ============================================================
+     CURRICULUM EXPLORER
+============================================================ -->
+<section id="curriculum" class="alt">
   <div class="wrap">
-    <div class="section-head-row">
-      <div class="section-head" style="margin-bottom:0">
-        <p class="section-eyebrow">03 - Curriculum Detail</p>
-        <h2 class="section-title">Learning Unit Explorer</h2>
-      </div>
-      <p class="section-note">Click any unit to expand full instructional detail.</p>
+    <div class="section-head reveal">
+      <span class="section-label">03 — Curriculum Detail</span>
+      <h2 class="section-title">Learning Unit Explorer</h2>
+      <p class="section-sub">Click any unit to expand full instructional detail: objectives, key messages, strategies, and assessment.</p>
     </div>
 
-    <div class="filter-bar">
-      <span class="filter-lbl">Filter by track:</span>
-      <button class="fbtn fa" onclick="filterUnits('all',this)">All</button>
-      <button class="fbtn" onclick="filterUnits('private',this,'fp')">Private</button>
-      <button class="fbtn" onclick="filterUnits('professional',this,'fpr')">Professional</button>
-      <button class="fbtn" onclick="filterUnits('citizen',this,'fc')">Citizen</button>
+    <div class="filter-row reveal">
+      <span class="filter-lbl">Filter by track →</span>
+      <button class="fpill on blue" data-filter="all" onclick="filterUnits(this,'all')">All Units</button>
+      <button class="fpill" data-filter="private" onclick="filterUnits(this,'private')"><span class="pill-dot" style="background:var(--c1)"></span>Private</button>
+      <button class="fpill" data-filter="professional" onclick="filterUnits(this,'professional')"><span class="pill-dot" style="background:var(--c2)"></span>Professional</button>
+      <button class="fpill" data-filter="citizen" onclick="filterUnits(this,'citizen')"><span class="pill-dot" style="background:var(--c4)"></span>Citizen</button>
     </div>
 
-    <div class="units-grid">
+    <div class="units-grid stagger" id="units-grid">
 
-      <!-- LU 1 -->
-      <div class="unit-card" data-track="private professional" data-areas="0" style="--unit-color:var(--c0)">
-        <div class="uc-top"></div>
-        <div class="uc-body">
-          <div class="uc-header">
-            <span class="uc-code">LU 1 · Area 0 - Devices and Foundations</span>
-            <div class="uc-tracks">
-              <span class="uc-track" style="background:var(--private-s);border-color:rgba(61,143,110,0.25);color:var(--private)">Private</span>
-              <span class="uc-track" style="background:var(--professional-s);border-color:rgba(160,124,42,0.25);color:var(--professional)">Professional</span>
-            </div>
+      <!-- LU1 -->
+      <div class="unit-card" style="--unit-c:var(--c0)" data-tracks="private professional">
+        <div class="uc-top">
+          <div class="uc-icon-row">
+            <div class="uc-icon" style="background:var(--c0b);color:var(--c0)">💻</div>
+            <span class="uc-unit-code" style="color:var(--c0)">LU 1 · Area 0</span>
+            <span class="uc-area-chip" style="background:var(--c0b);color:var(--c0);border-color:var(--c0b)">Devices &amp; Foundations</span>
           </div>
           <h3 class="uc-title">Basics of Digital Devices and Internet</h3>
           <p class="uc-question">"What can I do with a digital device, and how do I get it set up for my needs?"</p>
-          <div class="uc-meta">
-            <span class="uc-m">&#9201; 1 hour</span>
-            <span class="uc-m">&#128247; Mobile + Desktop</span>
+          <div class="uc-tracks-row">
+            <span class="uc-track-pill" style="background:rgba(5,150,105,0.10);color:var(--c1)">Private</span>
+            <span class="uc-track-pill" style="background:rgba(124,58,237,0.10);color:var(--c2)">Professional</span>
           </div>
-          <div class="comp-chips">
-            <span class="comp-chip" style="background:var(--c0s);border-color:rgba(196,119,58,0.25);color:var(--c0)">
-              <span class="chip-code">Area 0 · 0.1</span><span class="chip-name">Operating Digital Devices</span>
-            </span>
-            <span class="comp-chip" style="background:var(--c0s);border-color:rgba(196,119,58,0.25);color:var(--c0)">
-              <span class="chip-code">Area 0 · 0.2</span><span class="chip-name">Accessing and Engaging Digitally</span>
-            </span>
+          <div class="uc-comps">
+            <div class="uc-comp">Area 0 · 0.1 — Operating Digital Devices</div>
+            <div class="uc-comp">Area 0 · 0.2 — Accessing and Engaging Digitally</div>
           </div>
-          <button class="expand-btn" onclick="toggleUnit(this)">View Details <span class="exp-arr">&#8250;</span></button>
+        </div>
+        <hr class="uc-divider">
+        <div class="uc-bottom">
+          <div class="uc-meta-row">
+            <span class="uc-meta-item">⏱ 1 hour</span>
+          </div>
+          <button class="uc-expand-btn" onclick="toggleCard(this)">
+            Details <span class="exp-caret">›</span>
+          </button>
         </div>
         <div class="uc-detail">
           <div class="uc-detail-inner">
             <div class="det-block">
-              <p class="det-label">Learning Objectives</p>
+              <div class="det-lbl">Learning Objectives</div>
               <ul class="obj-list">
                 <li>Identify the main functions of common digital devices (computer, tablet, smartphone)</li>
                 <li>Install apps and software, and update them when needed</li>
@@ -1174,13 +887,15 @@
               </ul>
             </div>
             <div class="det-block">
-              <p class="det-label">Key Messages</p>
-              <div class="msg-card">Digital devices are tools - just like a telephone or a car. You don't need to understand how they work on the inside to use them well. Start with what you need, and build from there.</div>
-              <div class="msg-card">Your settings control your experience. Taking 10 minutes to configure a new device for your needs makes everything easier from day one.</div>
+              <div class="det-lbl">Key Messages</div>
+              <div class="key-msgs">
+                <div class="key-msg">Digital devices are tools - just like a telephone or a car. You don't need to understand how they work on the inside to use them well. Start with what you need, and build from there.</div>
+                <div class="key-msg">Your settings control your experience. Taking 10 minutes to configure a new device for your needs makes everything easier from day one.</div>
+              </div>
             </div>
             <div class="det-block">
-              <p class="det-label">Instructional Strategy</p>
-              <div class="strategy-tags">
+              <div class="det-lbl">Instructional Strategy</div>
+              <div class="strat-tags">
                 <span class="stag">Short explainer video</span>
                 <span class="stag">Facilitator-led device demo</span>
                 <span class="stag">Device-to-use-case matching</span>
@@ -1188,47 +903,47 @@
               </div>
             </div>
             <div class="det-block">
-              <p class="det-label">Assessment</p>
-              <div class="assmt-row">
-                <span class="assmt-chip" style="background:var(--c1s);border-color:rgba(61,143,110,0.25);color:var(--c1)">Formative</span>
-                <span class="assmt-text">Self-reflection questions on device use; hands-on task: change 3 settings on their own device.</span>
+              <div class="det-lbl">Assessment</div>
+              <div class="assmt-items">
+                <div class="assmt-item"><span class="assmt-tag">Formative</span>Self-reflection questions on device use; hands-on task: change 3 settings on their own device.</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- LU 2 -->
-      <div class="unit-card" data-track="private professional" data-areas="4" style="--unit-color:var(--c4)">
-        <div class="uc-top"></div>
-        <div class="uc-body">
-          <div class="uc-header">
-            <span class="uc-code">LU 2 · Area 4 - Safety and Security</span>
-            <div class="uc-tracks">
-              <span class="uc-track" style="background:var(--private-s);border-color:rgba(61,143,110,0.25);color:var(--private)">Private</span>
-              <span class="uc-track" style="background:var(--professional-s);border-color:rgba(160,124,42,0.25);color:var(--professional)">Professional</span>
-            </div>
+      <!-- LU2 -->
+      <div class="unit-card" style="--unit-c:var(--c4)" data-tracks="private professional">
+        <div class="uc-top">
+          <div class="uc-icon-row">
+            <div class="uc-icon" style="background:var(--c4b);color:var(--c4)">🔒</div>
+            <span class="uc-unit-code" style="color:var(--c4)">LU 2 · Area 4</span>
+            <span class="uc-area-chip" style="background:var(--c4b);color:var(--c4);border-color:var(--c4b)">Safety &amp; Security</span>
           </div>
           <h3 class="uc-title">Security and Safety Settings</h3>
           <p class="uc-question">"How do I protect my personal information online - and how do I spot when something isn't safe?"</p>
-          <div class="uc-meta">
-            <span class="uc-m">&#9201; 1 hour</span>
-            <span class="uc-m">&#127914; Scenario-Based</span>
+          <div class="uc-tracks-row">
+            <span class="uc-track-pill" style="background:rgba(5,150,105,0.10);color:var(--c1)">Private</span>
+            <span class="uc-track-pill" style="background:rgba(124,58,237,0.10);color:var(--c2)">Professional</span>
           </div>
-          <div class="comp-chips">
-            <span class="comp-chip" style="background:var(--c4s);border-color:rgba(58,110,168,0.25);color:var(--c4)">
-              <span class="chip-code">Area 4 · 4.1</span><span class="chip-name">Protecting Your Devices</span>
-            </span>
-            <span class="comp-chip" style="background:var(--c4s);border-color:rgba(58,110,168,0.25);color:var(--c4)">
-              <span class="chip-code">Area 4 · 4.2</span><span class="chip-name">Protecting Personal Data and Privacy</span>
-            </span>
+          <div class="uc-comps">
+            <div class="uc-comp">Area 4 · 4.1 — Protecting Your Devices</div>
+            <div class="uc-comp">Area 4 · 4.2 — Protecting Personal Data and Privacy</div>
           </div>
-          <button class="expand-btn" onclick="toggleUnit(this)" style="color:var(--c4)">View Details <span class="exp-arr">&#8250;</span></button>
+        </div>
+        <hr class="uc-divider">
+        <div class="uc-bottom">
+          <div class="uc-meta-row">
+            <span class="uc-meta-item">⏱ 1 hour</span>
+          </div>
+          <button class="uc-expand-btn" onclick="toggleCard(this)">
+            Details <span class="exp-caret">›</span>
+          </button>
         </div>
         <div class="uc-detail">
           <div class="uc-detail-inner">
             <div class="det-block">
-              <p class="det-label">Learning Objectives</p>
+              <div class="det-lbl">Learning Objectives</div>
               <ul class="obj-list">
                 <li>Recognise phishing emails and suspicious links before clicking</li>
                 <li>Create and manage strong passwords; understand two-factor authentication</li>
@@ -1238,13 +953,15 @@
               </ul>
             </div>
             <div class="det-block">
-              <p class="det-label">Key Messages</p>
-              <div class="msg-card" style="border-left-color:var(--c4)">A strong password is your front door. Using the same password everywhere is like using the same key for your home, your car, and your bank. A free password manager solves this.</div>
-              <div class="msg-card" style="border-left-color:var(--c4)">Pause before you click. Phishing messages rely on urgency - "your account will be closed", "you've won a prize". If it creates panic, slow down and verify.</div>
+              <div class="det-lbl">Key Messages</div>
+              <div class="key-msgs">
+                <div class="key-msg">A strong password is your front door. Using the same password everywhere is like using the same key for your home, your car, and your bank. A free password manager solves this.</div>
+                <div class="key-msg">Pause before you click. Phishing messages rely on urgency - "your account will be closed", "you've won a prize". If it creates panic, slow down and verify.</div>
+              </div>
             </div>
             <div class="det-block">
-              <p class="det-label">Instructional Strategy</p>
-              <div class="strategy-tags">
+              <div class="det-lbl">Instructional Strategy</div>
+              <div class="strat-tags">
                 <span class="stag">Phishing simulation activity</span>
                 <span class="stag">Spot-the-red-flag exercise</span>
                 <span class="stag">Personal security checklist</span>
@@ -1252,47 +969,47 @@
               </div>
             </div>
             <div class="det-block">
-              <p class="det-label">Assessment</p>
-              <div class="assmt-row">
-                <span class="assmt-chip" style="background:var(--c1s);border-color:rgba(61,143,110,0.25);color:var(--c1)">Formative</span>
-                <span class="assmt-text">Identify 3 red flags in a sample phishing email; complete a personal safety checklist.</span>
+              <div class="det-lbl">Assessment</div>
+              <div class="assmt-items">
+                <div class="assmt-item"><span class="assmt-tag">Formative</span>Identify 3 red flags in a sample phishing email; complete a personal safety checklist.</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- LU 3 -->
-      <div class="unit-card" data-track="private professional" data-areas="2" style="--unit-color:var(--c2)">
-        <div class="uc-top"></div>
-        <div class="uc-body">
-          <div class="uc-header">
-            <span class="uc-code">LU 3 · Area 2 - Communication and Collaboration</span>
-            <div class="uc-tracks">
-              <span class="uc-track" style="background:var(--private-s);border-color:rgba(61,143,110,0.25);color:var(--private)">Private</span>
-              <span class="uc-track" style="background:var(--professional-s);border-color:rgba(160,124,42,0.25);color:var(--professional)">Professional</span>
-            </div>
+      <!-- LU3 -->
+      <div class="unit-card" style="--unit-c:var(--c2)" data-tracks="private professional">
+        <div class="uc-top">
+          <div class="uc-icon-row">
+            <div class="uc-icon" style="background:var(--c2b);color:var(--c2)">💬</div>
+            <span class="uc-unit-code" style="color:var(--c2)">LU 3 · Area 2</span>
+            <span class="uc-area-chip" style="background:var(--c2b);color:var(--c2);border-color:var(--c2b)">Communication &amp; Collaboration</span>
           </div>
           <h3 class="uc-title">Communications and Operating Online</h3>
           <p class="uc-question">"What digital tools can I use to communicate - and how do I choose the right one for each situation?"</p>
-          <div class="uc-meta">
-            <span class="uc-m">&#9201; 1 hour</span>
-            <span class="uc-m">&#128172; Hands-On Practice</span>
+          <div class="uc-tracks-row">
+            <span class="uc-track-pill" style="background:rgba(5,150,105,0.10);color:var(--c1)">Private</span>
+            <span class="uc-track-pill" style="background:rgba(124,58,237,0.10);color:var(--c2)">Professional</span>
           </div>
-          <div class="comp-chips">
-            <span class="comp-chip" style="background:var(--c2s);border-color:rgba(160,124,42,0.25);color:var(--c2)">
-              <span class="chip-code">Area 2 · 2.1</span><span class="chip-name">Interacting via Digital Technologies</span>
-            </span>
-            <span class="comp-chip" style="background:var(--c2s);border-color:rgba(160,124,42,0.25);color:var(--c2)">
-              <span class="chip-code">Area 2 · 2.2</span><span class="chip-name">Sharing Through Digital Tools</span>
-            </span>
+          <div class="uc-comps">
+            <div class="uc-comp">Area 2 · 2.1 — Interacting via Digital Technologies</div>
+            <div class="uc-comp">Area 2 · 2.2 — Sharing Through Digital Tools</div>
           </div>
-          <button class="expand-btn" onclick="toggleUnit(this)" style="color:var(--c2)">View Details <span class="exp-arr">&#8250;</span></button>
+        </div>
+        <hr class="uc-divider">
+        <div class="uc-bottom">
+          <div class="uc-meta-row">
+            <span class="uc-meta-item">⏱ 1 hour</span>
+          </div>
+          <button class="uc-expand-btn" onclick="toggleCard(this)">
+            Details <span class="exp-caret">›</span>
+          </button>
         </div>
         <div class="uc-detail">
           <div class="uc-detail-inner">
             <div class="det-block">
-              <p class="det-label">Core Objectives - Private Track</p>
+              <div class="det-lbl">Core Objectives — Private Track</div>
               <ul class="obj-list">
                 <li>Send, reply to, and forward emails with correct formatting and attachments</li>
                 <li>Use messaging apps and video calls for personal communication</li>
@@ -1301,7 +1018,7 @@
               </ul>
             </div>
             <div class="det-block">
-              <p class="det-label">Additional Objectives - Professional Track</p>
+              <div class="det-lbl">Additional Objectives — Professional Track</div>
               <ul class="obj-list">
                 <li>Use advanced video-conferencing features (moderating, recording, screen-sharing)</li>
                 <li>Use cloud services (Google Drive, OneDrive) to share and collaborate on files</li>
@@ -1309,54 +1026,54 @@
               </ul>
             </div>
             <div class="det-block">
-              <p class="det-label">Key Message</p>
-              <div class="msg-card" style="border-left-color:var(--c2)">Email is formal and leaves a record. Messaging is immediate and informal. Video calls replace in-person presence. Choosing the right channel is a professional skill.</div>
+              <div class="det-lbl">Key Message</div>
+              <div class="key-msgs">
+                <div class="key-msg">Email is formal and leaves a record. Messaging is immediate and informal. Video calls replace in-person presence. Choosing the right channel is a professional skill.</div>
+              </div>
             </div>
             <div class="det-block">
-              <p class="det-label">Assessment</p>
-              <div class="assmt-row">
-                <span class="assmt-chip" style="background:var(--c1s);border-color:rgba(61,143,110,0.25);color:var(--c1)">Formative</span>
-                <span class="assmt-text">Compose a well-formatted email; match 5 communication scenarios to the most appropriate digital tool.</span>
+              <div class="det-lbl">Assessment</div>
+              <div class="assmt-items">
+                <div class="assmt-item"><span class="assmt-tag">Formative</span>Compose a well-formatted email; match 5 communication scenarios to the most appropriate digital tool.</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- LU 4 -->
-      <div class="unit-card" data-track="private professional" data-areas="1" style="--unit-color:var(--c1)">
-        <div class="uc-top"></div>
-        <div class="uc-body">
-          <div class="uc-header">
-            <span class="uc-code">LU 4 · Area 1 - Information and Data Literacy</span>
-            <div class="uc-tracks">
-              <span class="uc-track" style="background:var(--private-s);border-color:rgba(61,143,110,0.25);color:var(--private)">Private</span>
-              <span class="uc-track" style="background:var(--professional-s);border-color:rgba(160,124,42,0.25);color:var(--professional)">Professional</span>
-            </div>
+      <!-- LU4 -->
+      <div class="unit-card" style="--unit-c:var(--c1)" data-tracks="private professional">
+        <div class="uc-top">
+          <div class="uc-icon-row">
+            <div class="uc-icon" style="background:var(--c1b);color:var(--c1)">🔍</div>
+            <span class="uc-unit-code" style="color:var(--c1)">LU 4 · Area 1</span>
+            <span class="uc-area-chip" style="background:var(--c1b);color:var(--c1);border-color:var(--c1b)">Information &amp; Data Literacy</span>
           </div>
           <h3 class="uc-title">Seeking Information and Researching Online</h3>
           <p class="uc-question">"How do I find what I need online - and how do I know whether I can trust it?"</p>
-          <div class="uc-meta">
-            <span class="uc-m">&#9201; 1 hour</span>
-            <span class="uc-m">&#128269; Inquiry-Based</span>
+          <div class="uc-tracks-row">
+            <span class="uc-track-pill" style="background:rgba(5,150,105,0.10);color:var(--c1)">Private</span>
+            <span class="uc-track-pill" style="background:rgba(124,58,237,0.10);color:var(--c2)">Professional</span>
           </div>
-          <div class="comp-chips">
-            <span class="comp-chip" style="background:var(--c1s);border-color:rgba(61,143,110,0.25);color:var(--c1)">
-              <span class="chip-code">Area 1 · 1.1</span><span class="chip-name">Browsing, Searching and Filtering</span>
-            </span>
-            <span class="comp-chip" style="background:var(--c1s);border-color:rgba(61,143,110,0.25);color:var(--c1)">
-              <span class="chip-code">Area 1 · 1.2</span><span class="chip-name">Evaluating What You Find Online</span>
-            </span>
-            <span class="comp-chip" style="background:var(--c1s);border-color:rgba(61,143,110,0.25);color:var(--c1)">
-              <span class="chip-code">Area 1 · 1.3</span><span class="chip-name">Managing and Organising Digital Content</span>
-            </span>
+          <div class="uc-comps">
+            <div class="uc-comp">Area 1 · 1.1 — Browsing, Searching and Filtering</div>
+            <div class="uc-comp">Area 1 · 1.2 — Evaluating What You Find Online</div>
+            <div class="uc-comp">Area 1 · 1.3 — Managing and Organising Digital Content</div>
           </div>
-          <button class="expand-btn" onclick="toggleUnit(this)" style="color:var(--c1)">View Details <span class="exp-arr">&#8250;</span></button>
+        </div>
+        <hr class="uc-divider">
+        <div class="uc-bottom">
+          <div class="uc-meta-row">
+            <span class="uc-meta-item">⏱ 1 hour</span>
+          </div>
+          <button class="uc-expand-btn" onclick="toggleCard(this)">
+            Details <span class="exp-caret">›</span>
+          </button>
         </div>
         <div class="uc-detail">
           <div class="uc-detail-inner">
             <div class="det-block">
-              <p class="det-label">Learning Objectives</p>
+              <div class="det-lbl">Learning Objectives</div>
               <ul class="obj-list">
                 <li>Use specific keywords to find information quickly on search engines and within files</li>
                 <li>Use advanced search features to filter and refine results</li>
@@ -1367,58 +1084,60 @@
               </ul>
             </div>
             <div class="det-block">
-              <p class="det-label">Professional Track - Additional Scope</p>
+              <div class="det-lbl">Professional Track — Additional Scope</div>
               <ul class="obj-list">
                 <li>Use job boards and professional platforms (LinkedIn, eJobs Romania) to search for opportunities</li>
                 <li>Evaluate the reliability of online job listings and identify recruitment scams</li>
               </ul>
             </div>
             <div class="det-block">
-              <p class="det-label">Key Message</p>
-              <div class="msg-card" style="border-left-color:var(--c1)">Search engines surface popularity, not truth. The top result isn't always the most accurate. Cross-reference sources before acting on what you find online.</div>
+              <div class="det-lbl">Key Message</div>
+              <div class="key-msgs">
+                <div class="key-msg">Search engines surface popularity, not truth. The top result isn't always the most accurate. Cross-reference sources before acting on what you find online.</div>
+              </div>
             </div>
             <div class="det-block">
-              <p class="det-label">Assessment</p>
-              <div class="assmt-row">
-                <span class="assmt-chip" style="background:var(--c1s);border-color:rgba(61,143,110,0.25);color:var(--c1)">Formative</span>
-                <span class="assmt-text">Evaluate 3 given websites for credibility using a provided checklist; identify one example of misleading content and explain why.</span>
+              <div class="det-lbl">Assessment</div>
+              <div class="assmt-items">
+                <div class="assmt-item"><span class="assmt-tag">Formative</span>Evaluate 3 given websites for credibility using a provided checklist; identify one example of misleading content and explain why.</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- LU 5 -->
-      <div class="unit-card" data-track="private professional" data-areas="3" style="--unit-color:var(--c3)">
-        <div class="uc-top"></div>
-        <div class="uc-body">
-          <div class="uc-header">
-            <span class="uc-code">LU 5 · Area 3 - Digital Content Creation</span>
-            <div class="uc-tracks">
-              <span class="uc-track" style="background:var(--private-s);border-color:rgba(61,143,110,0.25);color:var(--private)">Private · 1 hr</span>
-              <span class="uc-track" style="background:var(--professional-s);border-color:rgba(160,124,42,0.25);color:var(--professional)">Professional · 2 hrs</span>
-            </div>
+      <!-- LU5 -->
+      <div class="unit-card" style="--unit-c:var(--c3)" data-tracks="private professional">
+        <div class="uc-top">
+          <div class="uc-icon-row">
+            <div class="uc-icon" style="background:var(--c3b);color:var(--c3)">✏️</div>
+            <span class="uc-unit-code" style="color:var(--c3)">LU 5 · Area 3</span>
+            <span class="uc-area-chip" style="background:var(--c3b);color:var(--c3);border-color:var(--c3b)">Digital Content Creation</span>
           </div>
           <h3 class="uc-title">Content Creation and Editing</h3>
           <p class="uc-question">"How do I create, edit, and share digital content - documents, images, audio, and video?"</p>
-          <div class="uc-meta">
-            <span class="uc-m">&#9201; 1-2 hours</span>
-            <span class="uc-m">&#128196; Hands-On Project</span>
+          <div class="uc-tracks-row">
+            <span class="uc-track-pill" style="background:rgba(5,150,105,0.10);color:var(--c1)">Private · 1 hr</span>
+            <span class="uc-track-pill" style="background:rgba(124,58,237,0.10);color:var(--c2)">Professional · 2 hrs</span>
           </div>
-          <div class="comp-chips">
-            <span class="comp-chip" style="background:var(--c3s);border-color:rgba(192,79,63,0.25);color:var(--c3)">
-              <span class="chip-code">Area 3 · 3.1</span><span class="chip-name">Developing Digital Content</span>
-            </span>
-            <span class="comp-chip" style="background:var(--c3s);border-color:rgba(192,79,63,0.25);color:var(--c3)">
-              <span class="chip-code">Area 3 · 3.2</span><span class="chip-name">Re-elaborating and Remixing Content</span>
-            </span>
+          <div class="uc-comps">
+            <div class="uc-comp">Area 3 · 3.1 — Developing Digital Content</div>
+            <div class="uc-comp">Area 3 · 3.2 — Re-elaborating and Remixing Content</div>
           </div>
-          <button class="expand-btn" onclick="toggleUnit(this)" style="color:var(--c3)">View Details <span class="exp-arr">&#8250;</span></button>
+        </div>
+        <hr class="uc-divider">
+        <div class="uc-bottom">
+          <div class="uc-meta-row">
+            <span class="uc-meta-item">⏱ 1–2 hours</span>
+          </div>
+          <button class="uc-expand-btn" onclick="toggleCard(this)">
+            Details <span class="exp-caret">›</span>
+          </button>
         </div>
         <div class="uc-detail">
           <div class="uc-detail-inner">
             <div class="det-block">
-              <p class="det-label">Core Objectives - Both Tracks</p>
+              <div class="det-lbl">Core Objectives — Both Tracks</div>
               <ul class="obj-list">
                 <li>Create and edit digital text documents (Word, Google Docs, OpenDocument formats)</li>
                 <li>Work with images: crop, resize, and use basic editing tools</li>
@@ -1427,7 +1146,7 @@
               </ul>
             </div>
             <div class="det-block">
-              <p class="det-label">Extended Objectives - Professional Track Only</p>
+              <div class="det-lbl">Extended Objectives — Professional Track Only</div>
               <ul class="obj-list">
                 <li>Produce multimedia presentations with text, images, audio, and video</li>
                 <li>Apply formatting standards for professional documents (CVs, reports)</li>
@@ -1435,59 +1154,55 @@
               </ul>
             </div>
             <div class="det-block">
-              <p class="det-label">Key Messages</p>
-              <div class="msg-card" style="border-left-color:var(--c3)">Creating digital content is a communication skill, not just a technical one. The right format for the right audience makes your message land.</div>
-              <div class="msg-card" style="border-left-color:var(--c3)">Just because something is online doesn't mean it's free to use. Always check licensing. Creative Commons makes it easy to find content you can legally reuse.</div>
+              <div class="det-lbl">Key Messages</div>
+              <div class="key-msgs">
+                <div class="key-msg">Creating digital content is a communication skill, not just a technical one. The right format for the right audience makes your message land.</div>
+                <div class="key-msg">Just because something is online doesn't mean it's free to use. Always check licensing. Creative Commons makes it easy to find content you can legally reuse.</div>
+              </div>
             </div>
             <div class="det-block">
-              <p class="det-label">Assessment</p>
-              <div class="assmt-row">
-                <span class="assmt-chip" style="background:var(--c1s);border-color:rgba(61,143,110,0.25);color:var(--c1)">Formative</span>
-                <span class="assmt-text">Private: Create a formatted document using a template; identify one licensed image they could legally reuse.</span>
-              </div>
-              <br>
-              <div class="assmt-row" style="margin-top:6px">
-                <span class="assmt-chip" style="background:var(--c3s);border-color:rgba(192,79,63,0.25);color:var(--c3)">Summative</span>
-                <span class="assmt-text">Professional: Produce a 3-5 slide multimedia presentation rated against a content and design rubric.</span>
+              <div class="det-lbl">Assessment</div>
+              <div class="assmt-items">
+                <div class="assmt-item"><span class="assmt-tag">Formative</span>Private: Create a formatted document using a template; identify one licensed image they could legally reuse.</div>
+                <div class="assmt-item"><span class="assmt-tag">Summative</span>Professional: Produce a 3-5 slide multimedia presentation rated against a content and design rubric.</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- LU 6 -->
-      <div class="unit-card" data-track="citizen private professional" data-areas="2 5" style="--unit-color:var(--citizen)">
-        <div class="uc-top"></div>
-        <div class="uc-body">
-          <div class="uc-header">
-            <span class="uc-code">LU 6 · Areas 2 and 5 - Citizen Life</span>
-            <div class="uc-tracks">
-              <span class="uc-track" style="background:var(--citizen-s);border-color:rgba(117,81,168,0.25);color:var(--citizen)">Mandatory for All</span>
-            </div>
+      <!-- LU6 -->
+      <div class="unit-card" style="--unit-c:var(--c5)" data-tracks="citizen">
+        <div class="uc-top">
+          <div class="uc-icon-row">
+            <div class="uc-icon" style="background:rgba(8,145,178,0.12);color:var(--c5)">🏛️</div>
+            <span class="uc-unit-code" style="color:var(--c5)">LU 6 · Areas 2 &amp; 5</span>
+            <span class="uc-area-chip" style="background:rgba(8,145,178,0.12);color:var(--c5);border-color:rgba(8,145,178,0.20)">Citizen Life</span>
           </div>
           <h3 class="uc-title">Citizen Life and eGovernment</h3>
           <p class="uc-question">"What government and civic services are available online, and how do I participate responsibly as a digital citizen?"</p>
-          <div class="uc-meta">
-            <span class="uc-m">&#9201; 2 hours</span>
-            <span class="uc-m">&#127963; Applied + Exploratory</span>
+          <div class="uc-tracks-row">
+            <span class="uc-track-pill" style="background:rgba(37,99,235,0.10);color:var(--c4)">Mandatory for All</span>
           </div>
-          <div class="comp-chips">
-            <span class="comp-chip" style="background:var(--c2s);border-color:rgba(160,124,42,0.25);color:var(--c2)">
-              <span class="chip-code">Area 2 · 2.3</span><span class="chip-name">Civic Participation and Digital Rights</span>
-            </span>
-            <span class="comp-chip" style="background:var(--c2s);border-color:rgba(160,124,42,0.25);color:var(--c2)">
-              <span class="chip-code">Area 2 · 2.4</span><span class="chip-name">Managing Your Digital Identity</span>
-            </span>
-            <span class="comp-chip" style="background:var(--c5s);border-color:rgba(117,81,168,0.25);color:var(--c5)">
-              <span class="chip-code">Area 5 · 5.4</span><span class="chip-name">Digital Entrepreneurship</span>
-            </span>
+          <div class="uc-comps">
+            <div class="uc-comp">Area 2 · 2.3 — Civic Participation and Digital Rights</div>
+            <div class="uc-comp">Area 2 · 2.4 — Managing Your Digital Identity</div>
+            <div class="uc-comp">Area 5 · 5.4 — Digital Entrepreneurship and eGov Services</div>
           </div>
-          <button class="expand-btn" onclick="toggleUnit(this)" style="color:var(--citizen)">View Details <span class="exp-arr">&#8250;</span></button>
+        </div>
+        <hr class="uc-divider">
+        <div class="uc-bottom">
+          <div class="uc-meta-row">
+            <span class="uc-meta-item">⏱ 2 hours</span>
+          </div>
+          <button class="uc-expand-btn" onclick="toggleCard(this)">
+            Details <span class="exp-caret">›</span>
+          </button>
         </div>
         <div class="uc-detail">
           <div class="uc-detail-inner">
             <div class="det-block">
-              <p class="det-label">Learning Objectives</p>
+              <div class="det-lbl">Learning Objectives</div>
               <ul class="obj-list">
                 <li>Navigate Romanian eGovernment portals and access public services (health, tax, ID)</li>
                 <li>Complete and submit online government forms accurately and securely</li>
@@ -1499,200 +1214,105 @@
               </ul>
             </div>
             <div class="det-block">
-              <p class="det-label">Romania-Specific Context</p>
-              <div class="strategy-tags">
-                <span class="stag">&#127479;&#127476; gov.ro portal navigation</span>
+              <div class="det-lbl">Romania-Specific Context</div>
+              <div class="strat-tags">
+                <span class="stag">🇷🇴 gov.ro portal navigation</span>
                 <span class="stag">eID and digital authentication</span>
                 <span class="stag">Online health appointment booking</span>
                 <span class="stag">ANAF tax portal</span>
               </div>
             </div>
             <div class="det-block">
-              <p class="det-label">Key Messages</p>
-              <div class="msg-card" style="border-left-color:var(--citizen)">Digital government services save time and reduce barriers. Knowing how to find and use official Romanian portals is increasingly a civic right and responsibility.</div>
-              <div class="msg-card" style="border-left-color:var(--citizen)">Your digital identity is everything that identifies you online. In the EU, you have the right to protect it - and the right to be forgotten.</div>
+              <div class="det-lbl">Key Messages</div>
+              <div class="key-msgs">
+                <div class="key-msg">Digital government services save time and reduce barriers. Knowing how to find and use official Romanian portals is increasingly a civic right and responsibility.</div>
+                <div class="key-msg">Your digital identity is everything that identifies you online. In the EU, you have the right to protect it - and the right to be forgotten.</div>
+              </div>
             </div>
             <div class="det-block">
-              <p class="det-label">Assessment</p>
-              <div class="assmt-row">
-                <span class="assmt-chip" style="background:var(--c3s);border-color:rgba(192,79,63,0.25);color:var(--c3)">Summative</span>
-                <span class="assmt-text">Complete a simulated eGovernment form; identify one public service relevant to their own situation; reflect on one digital right that applies to them personally.</span>
+              <div class="det-lbl">Assessment</div>
+              <div class="assmt-items">
+                <div class="assmt-item"><span class="assmt-tag">Summative</span>Complete a simulated eGovernment form; identify one public service relevant to their own situation; reflect on one digital right that applies to them personally.</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-    </div>
+    </div><!-- /units-grid -->
   </div>
 </section>
 
-<!-- FRAMEWORK DETAIL -->
-<section class="section" id="fw-detail">
+<!-- ============================================================
+     ASSESSMENT ARCHITECTURE
+============================================================ -->
+<section id="assessment">
   <div class="wrap">
-    <div class="section-head-row">
-      <div class="section-head" style="margin-bottom:0">
-        <p class="section-eyebrow">04 - What the Numbers Mean</p>
-        <h2 class="section-title">DigCompRo Framework</h2>
-      </div>
-      <p class="section-note">Romania's national Digital Competence standard, adapted from EU DigComp. Numbers are reference codes - like chapter and section numbers in a book.</p>
+    <div class="section-head reveal">
+      <span class="section-label">05 — Assessment Design</span>
+      <h2 class="section-title">Four-Stage Assessment</h2>
+      <p class="section-sub">Assessment is woven through the entire learning journey — from diagnostic entry to certification at the close.</p>
     </div>
 
-    <div class="fw-callout">
-      <strong>How to read the area codes:</strong> Each unit is tagged with a DigCompRo reference like <strong>Area 1 · 1.2</strong>. "Area 1" means the skill belongs to Information and Data Literacy. "1.2" specifically means <em>evaluating</em> what you find - not just finding it (that's 1.1). The decimal is a sub-section reference within that area.
-    </div>
-
-    <div class="fw-grid">
-
-      <div class="fw-card" style="--area-col:var(--c0)">
-        <div class="fw-card-top">
-          <div class="fw-dot" style="background:var(--c0)"></div>
-          <span class="fw-area-code" style="color:var(--c0)">Area 0</span>
-        </div>
-        <div class="fw-area-name">Devices and Foundations</div>
-        <div class="fw-area-plain">The basics: getting online, using devices, having the right attitude toward learning new tools.</div>
-        <div class="fw-subs">
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c0)">0.1</span><span class="fw-sub-text">Operating digital devices and technologies</span></div>
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c0)">0.2</span><span class="fw-sub-text">Engaging with the digital world continuously, ethically, and inclusively</span></div>
-        </div>
-      </div>
-
-      <div class="fw-card" style="--area-col:var(--c1)">
-        <div class="fw-card-top">
-          <div class="fw-dot" style="background:var(--c1)"></div>
-          <span class="fw-area-code" style="color:var(--c1)">Area 1</span>
-        </div>
-        <div class="fw-area-name">Information and Data Literacy</div>
-        <div class="fw-area-plain">Finding information online, judging whether it's reliable, and keeping it organised.</div>
-        <div class="fw-subs">
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c1)">1.1</span><span class="fw-sub-text">Browsing, searching, filtering - finding what you need quickly</span></div>
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c1)">1.2</span><span class="fw-sub-text">Evaluating - judging whether what you've found is accurate and trustworthy</span></div>
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c1)">1.3</span><span class="fw-sub-text">Managing - organising and storing digital information so you can find it again</span></div>
-        </div>
-      </div>
-
-      <div class="fw-card" style="--area-col:var(--c2)">
-        <div class="fw-card-top">
-          <div class="fw-dot" style="background:var(--c2)"></div>
-          <span class="fw-area-code" style="color:var(--c2)">Area 2</span>
-        </div>
-        <div class="fw-area-name">Communication and Collaboration</div>
-        <div class="fw-area-plain">How you interact with others digitally - from email and messaging to civic participation and your online identity.</div>
-        <div class="fw-subs">
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c2)">2.1</span><span class="fw-sub-text">Interacting - using email, messaging, video calls effectively</span></div>
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c2)">2.2</span><span class="fw-sub-text">Sharing - posting, forwarding, and collaborating responsibly</span></div>
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c2)">2.3</span><span class="fw-sub-text">Civic engagement - participating in online public life; rights and responsibilities</span></div>
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c2)">2.4</span><span class="fw-sub-text">Digital identity - managing how you present yourself across platforms</span></div>
-        </div>
-      </div>
-
-      <div class="fw-card" style="--area-col:var(--c3)">
-        <div class="fw-card-top">
-          <div class="fw-dot" style="background:var(--c3)"></div>
-          <span class="fw-area-code" style="color:var(--c3)">Area 3</span>
-        </div>
-        <div class="fw-area-name">Digital Content Creation</div>
-        <div class="fw-area-plain">Making things digitally - documents, images, videos, presentations - and knowing the rules around reusing others' work.</div>
-        <div class="fw-subs">
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c3)">3.1</span><span class="fw-sub-text">Creating - making documents, images, audio, video, and presentations</span></div>
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c3)">3.2</span><span class="fw-sub-text">Re-elaborating - legally remixing and adapting existing digital content</span></div>
-        </div>
-      </div>
-
-      <div class="fw-card" style="--area-col:var(--c4)">
-        <div class="fw-card-top">
-          <div class="fw-dot" style="background:var(--c4)"></div>
-          <span class="fw-area-code" style="color:var(--c4)">Area 4</span>
-        </div>
-        <div class="fw-area-name">Safety and Security</div>
-        <div class="fw-area-plain">Protecting yourself and your data online - from passwords and phishing to privacy settings and software updates.</div>
-        <div class="fw-subs">
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c4)">4.1</span><span class="fw-sub-text">Protecting devices - antivirus, updates, firewalls, secure access</span></div>
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c4)">4.2</span><span class="fw-sub-text">Protecting personal data - privacy settings, passwords, what not to share</span></div>
-        </div>
-      </div>
-
-      <div class="fw-card" style="--area-col:var(--c5)">
-        <div class="fw-card-top">
-          <div class="fw-dot" style="background:var(--c5)"></div>
-          <span class="fw-area-code" style="color:var(--c5)">Area 5</span>
-        </div>
-        <div class="fw-area-name">Problem Solving and Entrepreneurship</div>
-        <div class="fw-area-plain">Using digital tools to solve problems - including accessing public services, troubleshooting, and finding digital business opportunities.</div>
-        <div class="fw-subs">
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c5)">5.2</span><span class="fw-sub-text">Identifying digital needs - finding the right tool or platform for a goal</span></div>
-          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c5)">5.4</span><span class="fw-sub-text">Digital entrepreneurship - spotting and acting on digital economy opportunities</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ASSESSMENT -->
-<section class="section on-warm" id="assessment">
-  <div class="wrap">
-    <div class="section-head-row">
-      <div class="section-head" style="margin-bottom:0">
-        <p class="section-eyebrow">05 - Assessment Design</p>
-        <h2 class="section-title">Four-Stage Assessment</h2>
-      </div>
-      <p class="section-note">Assessment is woven through the entire learning journey - from diagnostic entry to certification at the close.</p>
-    </div>
-
-    <div class="flow-track">
+    <div class="flow-grid stagger">
       <div class="flow-card">
-        <div class="flow-step-num">Stage 1</div>
-        <div class="flow-step-icon">&#128203;</div>
-        <div class="flow-step-title">Pre-Assessment</div>
-        <div class="flow-step-tool">DSI · 30 min</div>
-        <div class="flow-step-desc">EU Digital Skills Indicator questions establish baseline and route learner to Private or Professional track. Results personalise - never exclude.</div>
+        <div class="flow-step-n">Stage 1</div>
+        <div class="flow-card-icon">📋</div>
+        <div class="flow-card-title">Pre-Assessment</div>
+        <div class="flow-card-tool">DSI · 30 min</div>
+        <div class="flow-card-desc">EU Digital Skills Indicator questions establish baseline and route learner to Private or Professional track. Results personalise - never exclude.</div>
       </div>
       <div class="flow-card">
-        <div class="flow-step-num">Stage 2</div>
-        <div class="flow-step-icon">&#128161;</div>
-        <div class="flow-step-title">Unit Self-Reflection</div>
-        <div class="flow-step-tool">Embedded throughout</div>
-        <div class="flow-step-desc">Short self-reflection questions after each unit. Learners already at "basic skills" level can skip and mark complete - or review for reinforcement.</div>
+        <div class="flow-step-n">Stage 2</div>
+        <div class="flow-card-icon">💡</div>
+        <div class="flow-card-title">Unit Self-Reflection</div>
+        <div class="flow-card-tool">Embedded throughout</div>
+        <div class="flow-card-desc">Short self-reflection questions after each unit. Learners already at "basic skills" level can skip and mark complete - or review for reinforcement.</div>
       </div>
       <div class="flow-card">
-        <div class="flow-step-num">Stage 3</div>
-        <div class="flow-step-icon">&#128202;</div>
-        <div class="flow-step-title">Post-Test</div>
-        <div class="flow-step-tool">DSI + Unit Items · 30 min</div>
-        <div class="flow-step-desc">Same DSI items as Stage 1, plus course-specific questions. Measures learning gain. Results feed back into individual progress reporting.</div>
+        <div class="flow-step-n">Stage 3</div>
+        <div class="flow-card-icon">📊</div>
+        <div class="flow-card-title">Post-Test</div>
+        <div class="flow-card-tool">DSI + Unit Items · 30 min</div>
+        <div class="flow-card-desc">Same DSI items as Stage 1, plus course-specific questions. Measures learning gain. Results feed back into individual progress reporting.</div>
       </div>
       <div class="flow-card">
-        <div class="flow-step-num">Stage 4</div>
-        <div class="flow-step-icon">&#127942;</div>
-        <div class="flow-step-title">Certification</div>
-        <div class="flow-step-tool">Randomised Bank · Retakeable</div>
-        <div class="flow-step-desc">Randomly drawn items from validated DigCompRo item bank. Passing score confirms at least basic digital skills. Certificate issued via Moodle LMS.</div>
+        <div class="flow-step-n">Stage 4</div>
+        <div class="flow-card-icon">🏆</div>
+        <div class="flow-card-title">Certification</div>
+        <div class="flow-card-tool">Randomised Bank · Retakeable</div>
+        <div class="flow-card-desc">Randomly drawn items from validated DigCompRo item bank. Passing score confirms at least basic digital skills. Certificate issued via Moodle LMS.</div>
       </div>
     </div>
 
-    <div class="ksa-grid">
+    <div class="section-head reveal" style="margin-top:56px">
+      <span class="section-label">KSA Taxonomy</span>
+      <h2 class="section-title" style="font-size:clamp(20px,2.5vw,28px)">Knowledge · Skills · Attitudes</h2>
+      <p class="section-sub">Each learning objective is classified by type and proficiency level, ensuring every aspect of digital competence is addressed — not just what learners can recall, but what they can do and how they approach challenges.</p>
+    </div>
+
+    <div class="ksa-grid stagger">
       <div class="ksa-card">
         <div class="ksa-head">
           <div class="ksa-letter" style="color:var(--c1)">K</div>
           <div class="ksa-name">Knowledge</div>
           <div class="ksa-desc">What learners understand conceptually</div>
         </div>
-        <div class="ksa-items">
+        <div class="ksa-body">
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-f">Foundation · Area 0</div>
+            <div class="ksa-item-lv lv-f">Foundation · Area 0</div>
             "I know the main functions of common digital devices (computer, tablet, smartphone)."
           </div>
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-i">Intermediate · Area 1</div>
+            <div class="ksa-item-lv lv-i">Intermediate · Area 1</div>
             "I know that different search engines may give different results because they use different algorithms."
           </div>
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-i">Intermediate · Area 4</div>
+            <div class="ksa-item-lv lv-i">Intermediate · Area 4</div>
             "I know which personal data I should not share online."
           </div>
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-f">Foundation · Area 2</div>
+            <div class="ksa-item-lv lv-f">Foundation · Area 2</div>
             "I know how to behave online according to the context (formal vs. informal)."
           </div>
         </div>
@@ -1703,21 +1323,21 @@
           <div class="ksa-name">Skills</div>
           <div class="ksa-desc">What learners can demonstrably do</div>
         </div>
-        <div class="ksa-items">
+        <div class="ksa-body">
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-f">Foundation · Area 2</div>
+            <div class="ksa-item-lv lv-f">Foundation · Area 2</div>
             "I can send, reply to, and forward emails."
           </div>
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-i">Intermediate · Area 2</div>
+            <div class="ksa-item-lv lv-i">Intermediate · Area 2</div>
             "I can use advanced video-conferencing features (e.g. moderating, recording audio)."
           </div>
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-i">Intermediate · Area 3</div>
+            <div class="ksa-item-lv lv-i">Intermediate · Area 3</div>
             "I can create and edit digital text files (e.g. Word, OpenDocument, Google Docs)."
           </div>
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-i">Intermediate · Area 4</div>
+            <div class="ksa-item-lv lv-i">Intermediate · Area 4</div>
             "I can identify suspicious emails that try to obtain my personal data."
           </div>
         </div>
@@ -1728,98 +1348,153 @@
           <div class="ksa-name">Attitudes</div>
           <div class="ksa-desc">How learners approach digital life</div>
         </div>
-        <div class="ksa-items">
+        <div class="ksa-body">
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-i">Intermediate · Area 0</div>
+            <div class="ksa-item-lv lv-i">Intermediate · Area 0</div>
             "I am curious about new digital devices and keen to experiment with them."
           </div>
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-i">Intermediate · Area 4</div>
+            <div class="ksa-item-lv lv-i">Intermediate · Area 4</div>
             "I am careful about checking the privacy policies of the digital services I use."
           </div>
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-i">Intermediate · Area 2</div>
+            <div class="ksa-item-lv lv-i">Intermediate · Area 2</div>
             "I am open to sharing digital content I think might be interesting and useful to others."
           </div>
           <div class="ksa-item">
-            <div class="ksa-item-lvl lv-i">Intermediate · Area 3</div>
+            <div class="ksa-item-lv lv-i">Intermediate · Area 3</div>
             "I am careful to choose the right type of digital media depending on my audience."
           </div>
         </div>
       </div>
     </div>
-
-    <div class="level-row">
-      <div class="lv-block">
-        <div class="lv-block-label lv-f">F - Foundation</div>
-        <div class="lv-block-desc">Core tasks with guidance. Learners can function with support and are aware of basic safe practices.</div>
-      </div>
-      <div class="lv-block">
-        <div class="lv-block-label lv-i">I - Intermediate</div>
-        <div class="lv-block-desc">Independent use across varied contexts. Can explain concepts to others and adapt to new tools.</div>
-      </div>
-      <div class="lv-block">
-        <div class="lv-block-label lv-a">A - Advanced</div>
-        <div class="lv-block-desc">Expert use. Can configure, troubleshoot, and guide others. Applies skills in novel or complex situations.</div>
-      </div>
-    </div>
   </div>
 </section>
 
-<!-- METHODOLOGY -->
-<section class="section on-warm">
+<!-- ============================================================
+     DIGCOMPRO FRAMEWORK
+============================================================ -->
+<section id="framework" class="alt">
   <div class="wrap">
-    <div class="section-head">
-      <p class="section-eyebrow">06 - Design Rationale</p>
-      <h2 class="section-title">Curriculum Methodology</h2>
+    <div class="section-head reveal">
+      <span class="section-label">DigCompRo Framework</span>
+      <h2 class="section-title">Romania's national digital competence map</h2>
+      <p class="section-sub">DigCompRo is Romania's adaptation of the EU DigComp framework, defining what digital competence means for Romanian citizens across six areas.</p>
     </div>
-    <div class="method-inner">
-      <div class="method-grid">
-        <div>
-          <h3 class="method-title">Digital STARs - Bridging Romania's digital divide.</h3>
-          <p class="method-body">
-            Digital STARs is grounded in DigCompRo - Romania's national Digital Competence framework, aligned to EU DigComp. The six competency areas (Devices, Information, Communication, Content, Safety, and Problem Solving) set the outcomes that every learner works toward, and the EU Digital Skills Indicator provides the pre- and post-assessment measure of whether they got there.
-            <br><br>
-            But competency frameworks define <em>what</em> to teach - not why it matters to any specific learner. The curriculum uses life events as the instructional context: a young person drafting their first CV is practising Area 3 (Content Creation); an adult using e-banking or accessing government e-services - paying fines online or authenticating via RoEID - is applying Area 5 (Problem Solving). The three tracks (Private, Professional, Citizen) route each of the programme's 100,000 participants to the life contexts most relevant to them, while the shared Citizen track ensures common civic digital literacy across every cohort.
-            <br><br>
-            The target population includes socio-economically disadvantaged individuals, people with disabilities, unskilled workers, retired adults, women, and young people not currently in education or employment. Many also carry <em>digital skepticism</em> - an active distrust of technology, not just unfamiliarity with it. The curriculum addresses this directly: debunking common myths, demonstrating concrete personal benefits, and building attitudes and confidence alongside knowledge and skills.
-          </p>
+
+    <div class="fw-intro reveal">
+      <strong>How to read the area codes:</strong> Each unit is tagged with a DigCompRo reference like <strong>Area 1 · 1.2</strong>. "Area 1" means the skill belongs to Information and Data Literacy. "1.2" specifically means <em>evaluating</em> what you find - not just finding it (that's 1.1). The decimal is a sub-section reference within that area.
+    </div>
+
+    <div class="fw-grid stagger">
+      <div class="fw-card" style="--area-c:var(--c0)">
+        <div class="fw-top"><div class="fw-dot" style="background:var(--c0)"></div><span class="fw-code" style="color:var(--c0)">Area 0</span></div>
+        <div class="fw-name">Devices and Foundations</div>
+        <div class="fw-plain">The basics: getting online, using devices, having the right attitude toward learning new tools.</div>
+        <div class="fw-subs">
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c0)">0.1</span><span class="fw-sub-text">Operating digital devices and technologies</span></div>
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c0)">0.2</span><span class="fw-sub-text">Engaging with the digital world continuously, ethically, and inclusively</span></div>
         </div>
-        <div class="principles">
-          <div class="principle">
-            <div class="pr-icon">&#8592;</div>
-            <div>
-              <div class="pr-title">Backward Design</div>
-              <div class="pr-desc">DigCompRo outcomes defined first. DSI assessment items second. Learning activities designed last - every choice justified by what learners need to demonstrate.</div>
-            </div>
+      </div>
+      <div class="fw-card" style="--area-c:var(--c1)">
+        <div class="fw-top"><div class="fw-dot" style="background:var(--c1)"></div><span class="fw-code" style="color:var(--c1)">Area 1</span></div>
+        <div class="fw-name">Information and Data Literacy</div>
+        <div class="fw-plain">Finding information online, judging whether it's reliable, and keeping it organised.</div>
+        <div class="fw-subs">
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c1)">1.1</span><span class="fw-sub-text">Browsing, searching, filtering - finding what you need quickly</span></div>
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c1)">1.2</span><span class="fw-sub-text">Evaluating - judging whether what you've found is accurate and trustworthy</span></div>
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c1)">1.3</span><span class="fw-sub-text">Managing - organising and storing digital information so you can find it again</span></div>
+        </div>
+      </div>
+      <div class="fw-card" style="--area-c:var(--c2)">
+        <div class="fw-top"><div class="fw-dot" style="background:var(--c2)"></div><span class="fw-code" style="color:var(--c2)">Area 2</span></div>
+        <div class="fw-name">Communication and Collaboration</div>
+        <div class="fw-plain">How you interact with others digitally - from email and messaging to civic participation and your online identity.</div>
+        <div class="fw-subs">
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c2)">2.1</span><span class="fw-sub-text">Interacting - using email, messaging, video calls effectively</span></div>
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c2)">2.2</span><span class="fw-sub-text">Sharing - posting, forwarding, and collaborating responsibly</span></div>
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c2)">2.3</span><span class="fw-sub-text">Civic engagement - participating in online public life; rights and responsibilities</span></div>
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c2)">2.4</span><span class="fw-sub-text">Digital identity - managing how you present yourself across platforms</span></div>
+        </div>
+      </div>
+      <div class="fw-card" style="--area-c:var(--c3)">
+        <div class="fw-top"><div class="fw-dot" style="background:var(--c3)"></div><span class="fw-code" style="color:var(--c3)">Area 3</span></div>
+        <div class="fw-name">Digital Content Creation</div>
+        <div class="fw-plain">Making things digitally - documents, images, videos, presentations - and knowing the rules around reusing others' work.</div>
+        <div class="fw-subs">
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c3)">3.1</span><span class="fw-sub-text">Creating - making documents, images, audio, video, and presentations</span></div>
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c3)">3.2</span><span class="fw-sub-text">Re-elaborating - legally remixing and adapting existing digital content</span></div>
+        </div>
+      </div>
+      <div class="fw-card" style="--area-c:var(--c4)">
+        <div class="fw-top"><div class="fw-dot" style="background:var(--c4)"></div><span class="fw-code" style="color:var(--c4)">Area 4</span></div>
+        <div class="fw-name">Safety and Security</div>
+        <div class="fw-plain">Protecting yourself and your data online - from passwords and phishing to privacy settings and software updates.</div>
+        <div class="fw-subs">
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c4)">4.1</span><span class="fw-sub-text">Protecting devices - antivirus, updates, firewalls, secure access</span></div>
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c4)">4.2</span><span class="fw-sub-text">Protecting personal data - privacy settings, passwords, what not to share</span></div>
+        </div>
+      </div>
+      <div class="fw-card" style="--area-c:var(--c5)">
+        <div class="fw-top"><div class="fw-dot" style="background:var(--c5)"></div><span class="fw-code" style="color:var(--c5)">Area 5</span></div>
+        <div class="fw-name">Problem Solving and Entrepreneurship</div>
+        <div class="fw-plain">Using digital tools to solve problems - including accessing public services, troubleshooting, and finding digital business opportunities.</div>
+        <div class="fw-subs">
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c5)">5.2</span><span class="fw-sub-text">Identifying digital needs - finding the right tool or platform for a goal</span></div>
+          <div class="fw-sub"><span class="fw-sub-code" style="color:var(--c5)">5.4</span><span class="fw-sub-text">Digital entrepreneurship - spotting and acting on digital economy opportunities</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     METHODOLOGY (DARK)
+============================================================ -->
+<section id="methodology" class="dark">
+  <div class="wrap">
+    <div class="method-inner">
+      <div class="reveal">
+        <span class="section-label">Design Methodology</span>
+        <h2 class="method-h">Digital STARs — Bridging Romania's digital divide.</h2>
+        <p class="method-p">Digital STARs is grounded in DigCompRo - Romania's national Digital Competence framework, aligned to EU DigComp. The six competency areas (Devices, Information, Communication, Content, Safety, and Problem Solving) set the outcomes that every learner works toward, and the EU Digital Skills Indicator provides the pre- and post-assessment measure of whether they got there.</p>
+        <p class="method-p">But competency frameworks define <em>what</em> to teach - not why it matters to any specific learner. The curriculum uses life events as the instructional context: a young person drafting their first CV is practising Area 3 (Content Creation); an adult using e-banking or accessing government e-services — paying fines online or authenticating via RoEID — is applying Area 5 (Problem Solving). The three tracks route each of the programme's 100,000 participants to the life contexts most relevant to them, while the shared Citizen track ensures common civic digital literacy across every cohort.</p>
+        <p class="method-p">The target population includes socio-economically disadvantaged individuals, people with disabilities, unskilled workers, retired adults, women, and young people not currently in education or employment. Many also carry <em>digital scepticism</em> — an active distrust of technology, not just unfamiliarity. The curriculum addresses this directly: debunking myths, demonstrating concrete personal benefits, and building attitudes alongside knowledge and skills.</p>
+      </div>
+      <div class="principles reveal">
+        <div class="principle">
+          <div class="pr-icon">←</div>
+          <div>
+            <div class="pr-title">Backward Design</div>
+            <div class="pr-desc">DigCompRo outcomes defined first. DSI assessment items second. Learning activities designed last - every choice justified by what learners need to demonstrate.</div>
           </div>
-          <div class="principle">
-            <div class="pr-icon">&#127775;</div>
-            <div>
-              <div class="pr-title">Life Events as Context</div>
-              <div class="pr-desc">Private, Professional, and Citizen tracks use real-life situations - booking a health appointment, applying for a job, paying tax online - so skills transfer immediately.</div>
-            </div>
+        </div>
+        <div class="principle">
+          <div class="pr-icon">✦</div>
+          <div>
+            <div class="pr-title">Life Events as Context</div>
+            <div class="pr-desc">Private, Professional, and Citizen tracks use real-life situations - booking a health appointment, applying for a job, paying tax online - so skills transfer immediately.</div>
           </div>
-          <div class="principle">
-            <div class="pr-icon">&#128218;</div>
-            <div>
-              <div class="pr-title">Blended Delivery</div>
-              <div class="pr-desc">10 hrs self-paced eLearning on Moodle (SCORM 1.2), combined with librarian-facilitated support at 700+ public libraries nationwide.</div>
-            </div>
+        </div>
+        <div class="principle">
+          <div class="pr-icon">📚</div>
+          <div>
+            <div class="pr-title">Blended Delivery</div>
+            <div class="pr-desc">10 hrs self-paced eLearning on Moodle (SCORM 1.2), combined with librarian-facilitated support at 700+ public libraries nationwide.</div>
           </div>
-          <div class="principle">
-            <div class="pr-icon">&#9745;</div>
-            <div>
-              <div class="pr-title">Accessible by Design</div>
-              <div class="pr-desc">EN 301 549 compliant. Mobile-first for Private track. Optimised for low bandwidth. Short lessons capped at 30 minutes each.</div>
-            </div>
+        </div>
+        <div class="principle">
+          <div class="pr-icon">✓</div>
+          <div>
+            <div class="pr-title">Accessible by Design</div>
+            <div class="pr-desc">EN 301 549 compliant. Mobile-first for Private track. Optimised for low bandwidth. Short lessons capped at 30 minutes each.</div>
           </div>
-          <div class="principle">
-            <div class="pr-icon">&#128736;</div>
-            <div>
-              <div class="pr-title">Modular Architecture</div>
-              <div class="pr-desc">Six standalone units that can be updated independently as Romanian digital services evolve - without redesigning the whole programme.</div>
-            </div>
+        </div>
+        <div class="principle">
+          <div class="pr-icon">⚙</div>
+          <div>
+            <div class="pr-title">Modular Architecture</div>
+            <div class="pr-desc">Six standalone units that can be updated independently as Romanian digital services evolve - without redesigning the whole programme.</div>
           </div>
         </div>
       </div>
@@ -1827,69 +1502,67 @@
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ============================================================
+     FOOTER
+============================================================ -->
 <footer>
   <div class="footer-inner">
-    <span class="footer-text">Digital STARs · World Bank Technical Assistance · Romania NRRP · 2024-2026 · Altamont Group</span>
-    <span class="footer-text">Curriculum Architecture Portfolio</span>
+    <a class="footer-logo" href="#">
+      <div class="logo-sq" style="width:24px;height:24px;font-size:9px">DS</div>
+      <span style="font-size:12px;font-weight:600;color:var(--ink-2)">Digital STARs</span>
+    </a>
+    <span class="footer-text">World Bank Technical Assistance · Romania NRRP · 2024–2026 · Altamont Group</span>
+    <div class="footer-links">
+      <a href="#pathway">Pathway</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#assessment">Assessment</a>
+    </div>
   </div>
 </footer>
 
 <script>
-  function toggleUnit(btn) {
-    btn.closest('.unit-card').classList.toggle('open');
-  }
+  // Sticky header shadow
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('raised', window.scrollY > 10);
+  }, { passive: true });
 
-  function filterUnits(track, btn, cls) {
-    document.querySelectorAll('.fbtn').forEach(b => b.className = 'fbtn');
-    btn.classList.add('fbtn', cls || 'fa');
-    document.querySelectorAll('.unit-card').forEach(card => {
-      if (track === 'all') { card.classList.remove('hidden'); }
-      else {
-        const t = card.dataset.track || '';
-        if (t.includes(track)) { card.classList.remove('hidden'); }
-        else { card.classList.add('hidden'); card.classList.remove('open'); }
-      }
-    });
-  }
-
-  function filterByArea(area, event) {
-    document.querySelectorAll('.apill').forEach(t => t.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    document.getElementById('units').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    setTimeout(() => {
-      document.querySelectorAll('.unit-card').forEach(card => {
-        if (area === 'all') { card.classList.remove('hidden'); }
-        else {
-          const a = card.dataset.areas || '';
-          if (a.includes(area)) { card.classList.remove('hidden'); }
-          else { card.classList.add('hidden'); card.classList.remove('open'); }
-        }
-      });
-      document.querySelectorAll('.fbtn').forEach(b => b.className = 'fbtn');
-      document.querySelector('.fbtn').classList.add('fbtn', 'fa');
-    }, 300);
-  }
-
-  // Entrance animations
-  const io = new IntersectionObserver(entries => {
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-        io.unobserve(e.target);
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.06 });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll(
-    '.unit-card, .fw-card, .ksa-card, .principle, .flow-card, .stat, .path-lu, .citizen-comp'
-  ).forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(10px)';
-    el.style.transition = `opacity 0.4s ${(i % 8) * 0.06}s ease, transform 0.4s ${(i % 8) * 0.06}s ease`;
-    io.observe(el);
-  });
+  document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+
+  // Expand / collapse unit cards
+  function toggleCard(btn) {
+    const card = btn.closest('.unit-card');
+    card.classList.toggle('open');
+    btn.innerHTML = card.classList.contains('open')
+      ? 'Close <span class="exp-caret" style="transform:rotate(90deg);display:inline-block">›</span>'
+      : 'Details <span class="exp-caret">›</span>';
+  }
+
+  // Filter units by track
+  function filterUnits(btn, track) {
+    document.querySelectorAll('.fpill').forEach(b => b.classList.remove('on','blue'));
+    btn.classList.add('on');
+    if (track === 'all') btn.classList.add('blue');
+
+    document.querySelectorAll('.unit-card').forEach(card => {
+      if (track === 'all') {
+        card.classList.remove('hidden');
+      } else {
+        const tracks = card.dataset.tracks || '';
+        card.classList.toggle('hidden', !tracks.includes(track));
+      }
+    });
+  }
 </script>
 </body>
 </html>
